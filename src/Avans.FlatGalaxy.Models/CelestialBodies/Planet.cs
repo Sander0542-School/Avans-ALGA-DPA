@@ -1,6 +1,6 @@
 ﻿namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
-    public class Planet : ICelestialBody
+    public class Planet : CelestialBody
     {
         
     }
