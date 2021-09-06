@@ -17,6 +17,17 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
             var xmlBody = new XmlDocument();
             xmlBody.LoadXml(content);
 
+            foreach (XmlNode xmlNode in xmlBody.ChildNodes)
+            {
+                if (xmlNode.Name == "planet")
+                {
+                    var planet = new Planet
+                    {
+                        
+                    };
+                }
+            }
+
             return galaxy;
         }
     }
