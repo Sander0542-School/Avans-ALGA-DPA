@@ -15,6 +15,6 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
             _foldFactory = foldFactory;
         }
 
-        public abstract CelestialBody[] Load(Uri source);
+        protected abstract Galaxy Load(string body);
     }
 }
