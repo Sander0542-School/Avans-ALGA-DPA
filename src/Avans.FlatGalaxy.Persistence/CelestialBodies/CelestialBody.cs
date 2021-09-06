@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
-using Avans.FlatGalaxy.Models.CelestialBodies.States;
+using Avans.FlatGalaxy.Persistence.CelestialBodies.States;
 
-namespace Avans.FlatGalaxy.Models.CelestialBodies
+namespace Avans.FlatGalaxy.Persistence.CelestialBodies
 {
     public abstract class CelestialBody
     {

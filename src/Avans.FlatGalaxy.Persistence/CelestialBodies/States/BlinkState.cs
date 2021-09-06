@@ -1,4 +1,4 @@
-﻿namespace Avans.FlatGalaxy.Models.CelestialBodies.States
+﻿namespace Avans.FlatGalaxy.Persistence.CelestialBodies.States
 {
     public class BlinkState : ICollisionState
     {

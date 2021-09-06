@@ -1,4 +1,4 @@
-﻿namespace Avans.FlatGalaxy.Models.CelestialBodies
+﻿namespace Avans.FlatGalaxy.Persistence.CelestialBodies
 {
     public class Planet : CelestialBody
     {

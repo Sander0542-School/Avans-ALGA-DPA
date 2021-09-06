@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7996173C-8F8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Abstractions", "src\Avans.FlatGalaxy.Abstractions\Avans.FlatGalaxy.Abstractions.csproj", "{CE750808-F700-42DA-BA25-B92BB1411D1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Models", "src\Avans.FlatGalaxy.Models\Avans.FlatGalaxy.Models.csproj", "{89B5ABAF-73F2-4682-AB42-048DCA3C4BB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Persistence", "src\Avans.FlatGalaxy.Persistence\Avans.FlatGalaxy.Persistence.csproj", "{89B5ABAF-73F2-4682-AB42-048DCA3C4BB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
