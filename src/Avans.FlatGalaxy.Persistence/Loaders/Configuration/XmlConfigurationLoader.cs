@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Drawing;
+using System.Xml;
 using Avans.FlatGalaxy.Persistence.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 
@@ -13,7 +14,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
         protected override Galaxy Load(string content)
         {
             var galaxy = new Galaxy();
-            
+
             var xmlBody = new XmlDocument();
             xmlBody.LoadXml(content);
 
@@ -21,10 +22,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
             {
                 if (xmlNode.Name == "planet")
                 {
-                    var planet = new Planet
-                    {
-                        
-                    };
+                    var planet = new Planet();
                 }
             }
 
