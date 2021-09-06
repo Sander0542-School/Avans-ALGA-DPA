@@ -1,9 +1,8 @@
 ﻿using System;
-using Avans.FlatGalaxy.Persistence.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders.File;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders
+namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public abstract class ConfigurationLoader
     {

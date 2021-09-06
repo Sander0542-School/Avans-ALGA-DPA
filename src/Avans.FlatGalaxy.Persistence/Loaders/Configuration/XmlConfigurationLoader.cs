@@ -2,7 +2,7 @@
 using Avans.FlatGalaxy.Persistence.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders
+namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public class XmlConfigurationLoader : ConfigurationLoader
     {
