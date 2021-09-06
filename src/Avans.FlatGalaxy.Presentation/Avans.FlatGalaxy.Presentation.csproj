@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Avans.FlatGalaxy.Abstractions\Avans.FlatGalaxy.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>
