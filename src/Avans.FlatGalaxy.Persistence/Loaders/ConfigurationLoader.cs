@@ -15,6 +15,6 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
             _foldFactory = foldFactory;
         }
 
-        protected abstract Galaxy Load(string body);
+        protected abstract Galaxy Load(string content);
     }
 }

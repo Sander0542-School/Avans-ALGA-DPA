@@ -9,7 +9,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
         {
         }
 
-        protected override Galaxy Load(string body)
+        protected override Galaxy Load(string content)
         {
             throw new System.NotImplementedException();
         }

@@ -10,12 +10,12 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
         {
         }
 
-        protected override Galaxy Load(string body)
+        protected override Galaxy Load(string content)
         {
             var galaxy = new Galaxy();
             
             var xmlBody = new XmlDocument();
-            xmlBody.LoadXml(body);
+            xmlBody.LoadXml(content);
 
             return galaxy;
         }
