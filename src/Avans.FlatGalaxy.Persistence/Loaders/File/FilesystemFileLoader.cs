@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders.File
 {
-    public class FilesystemFileLoader : IFileLoader
+    public class FileSystemFileLoader : IFileLoader
     {
         public string GetContent(Uri source)
         {

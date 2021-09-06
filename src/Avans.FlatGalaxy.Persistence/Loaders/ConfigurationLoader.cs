@@ -18,19 +18,13 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
 
         public Galaxy Load(Uri source)
         {
-            IFileLoader fileLoader;
-            switch (source.Scheme)
+            IFileLoader fileLoader = source.Scheme switch
             {
-                case "file":
-                    fileLoader = new FilesystemFileLoader();
-                    break;
-                case "http":
-                case "https":
-                    fileLoader = new WebFileLoader();
-                    break;
-                default:
-                    throw new InvalidOperationException("The specified source is not a valid source");
-            }
+                "file" => new FileSystemFileLoader(),
+                "http" => new HttpFileLoader(),
+                "https" => new HttpFileLoader(),
+                _ => throw new InvalidOperationException($"There is not file loader for the source type {source.Scheme}")
+            };
 
             return Load(fileLoader.GetContent(source));
         }
