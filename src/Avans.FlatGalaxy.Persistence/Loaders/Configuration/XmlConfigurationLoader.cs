@@ -1,13 +1,14 @@
 ﻿using System.Drawing;
 using System.Xml;
 using Avans.FlatGalaxy.Persistence.CelestialBodies;
+using Avans.FlatGalaxy.Persistence.Factories;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public class XmlConfigurationLoader : ConfigurationLoader
     {
-        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFoldFactory foldFactory) : base(celestialBodyFactory, foldFactory)
+        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
         }
 
@@ -22,7 +23,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
             {
                 if (xmlNode.Name == "planet")
                 {
-                    var planet = new Planet();
+                    // var planet = CelestialBodyFactory.Create();
                 }
             }
 

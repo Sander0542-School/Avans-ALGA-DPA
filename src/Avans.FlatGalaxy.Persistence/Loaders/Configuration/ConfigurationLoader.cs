@@ -7,12 +7,10 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
     public abstract class ConfigurationLoader
     {
         protected ICelestialBodyFactory CelestialBodyFactory;
-        protected IFoldFactory FoldFactory;
 
-        protected ConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFoldFactory foldFactory)
+        protected ConfigurationLoader(ICelestialBodyFactory celestialBodyFactory)
         {
             CelestialBodyFactory = celestialBodyFactory;
-            FoldFactory = foldFactory;
         }
 
         public Galaxy Load(Uri source)
