@@ -10,7 +10,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public class CsvConfigurationLoader : ConfigurationLoader
     {
-        public CsvConfigurationLoader(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
+        public CsvConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
         {
         }
 
