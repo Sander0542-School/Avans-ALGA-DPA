@@ -29,8 +29,8 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
                     var type = attributes[1];
                     int.TryParse(attributes[2], out var x);
                     int.TryParse(attributes[3], out var y);
-                    int.TryParse(attributes[4], out var vx);
-                    int.TryParse(attributes[5], out var vy);
+                    double.TryParse(attributes[4], out var vx);
+                    double.TryParse(attributes[5], out var vy);
                     var neighbours = attributes[6].Split(',');
                     int.TryParse(attributes[7], out var radius);
                     var color = attributes[8];
