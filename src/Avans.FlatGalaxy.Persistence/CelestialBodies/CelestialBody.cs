@@ -5,13 +5,14 @@ namespace Avans.FlatGalaxy.Persistence.CelestialBodies
 {
     public abstract class CelestialBody
     {
+        public string Name { get; set; }
         public int X { get; set; }
 
         public int Y { get; set; }
 
-        public int VX { get; set; }
+        public double VX { get; set; }
 
-        public int VY { get; set; }
+        public double VY { get; set; }
 
         public int Radius { get; set; }
 
@@ -19,8 +20,9 @@ namespace Avans.FlatGalaxy.Persistence.CelestialBodies
 
         public ICollisionState CollisionState { get; set; }
 
-        public CelestialBody(int x, int y, int vx, int vy, int radius, Color color, ICollisionState collisionState)
+        public CelestialBody(string name, int x, int y, int vx, int vy, int radius, Color color, ICollisionState collisionState)
         {
+            Name = name;
             X = x;
             Y = y;
             VX = vx;

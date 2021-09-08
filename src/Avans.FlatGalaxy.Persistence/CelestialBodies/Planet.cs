@@ -5,7 +5,7 @@ namespace Avans.FlatGalaxy.Persistence.CelestialBodies
 {
     public class Planet : CelestialBody
     {
-        public Planet(int x, int y, int vx, int vy, int radius, Color color, ICollisionState collisionState) : base(x, y, vx, vy, radius, color, collisionState)
+        public Planet(string name, int x, int y, int vx, int vy, int radius, Color color, ICollisionState collisionState) : base(name, x, y, vx, vy, radius, color, collisionState)
         {
         }
     }

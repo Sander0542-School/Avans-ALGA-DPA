@@ -8,15 +8,15 @@ namespace Avans.FlatGalaxy.Persistence.Factories
 {
     public class CelestialBodyFactory : ICelestialBodyFactory
     {
-        public CelestialBody Create(string type, int x, int y, int vx, int vy, int radius, string colorName, string collisionName)
+        public CelestialBody Create(string name, string type, int x, int y, int vx, int vy, int radius, string colorName, string collisionName)
         {
             var color = Color.FromName(colorName);
             var collision = GetCollisionState(collisionName);
 
             return type.ToLower() switch
             {
-                "planet" => new Planet(x, y, vx, vy, radius, color, collision),
-                "asteroid" => new Asteroid(x, y, vx, vy, radius, color, collision),
+                "planet" => new Planet(name, x, y, vx, vy, radius, color, collision),
+                "asteroid" => new Asteroid(name, x, y, vx, vy, radius, color, collision),
                 _ => throw new NotImplementedException($"The {type} celestial body has not been implemented yet")
             };
         }
