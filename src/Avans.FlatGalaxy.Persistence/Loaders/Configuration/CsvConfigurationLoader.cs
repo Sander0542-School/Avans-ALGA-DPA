@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using CsvHelper;
+using Avans.FlatGalaxy.Persistence.Factories.Common;
+using Avans.FlatGalaxy.Persistence.Loaders.File;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {

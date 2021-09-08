@@ -15,15 +15,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 
         public Galaxy Load(Uri source)
         {
-            IFileLoader fileLoader = source.Scheme switch
-            {
-                "file" => new FileSystemFileLoader(),
-                "http" => new HttpFileLoader(),
-                "https" => new HttpFileLoader(),
-                _ => throw new InvalidOperationException($"There is not file loader for the source type {source.Scheme}")
-            };
-
-            return Load(fileLoader.GetContent(source));
+            return Load(_fileLoader.GetContent(source));
         }
 
         protected abstract Galaxy Load(string body);

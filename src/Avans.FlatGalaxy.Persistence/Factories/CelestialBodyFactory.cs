@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using Avans.FlatGalaxy.Persistence.CelestialBodies;
-using Avans.FlatGalaxy.Persistence.CelestialBodies.States;
+using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Models.CelestialBodies.States;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 
 namespace Avans.FlatGalaxy.Persistence.Factories

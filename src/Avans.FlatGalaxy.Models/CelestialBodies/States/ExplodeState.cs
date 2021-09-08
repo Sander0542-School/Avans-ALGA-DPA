@@ -1,6 +1,6 @@
-﻿namespace Avans.FlatGalaxy.Persistence.CelestialBodies.States
+﻿namespace Avans.FlatGalaxy.Models.CelestialBodies.States
 {
-    public class GrowState : ICollisionState
+    public class ExplodeState : ICollisionState
     {
         public void Collide(CelestialBody celestialBody)
         {
