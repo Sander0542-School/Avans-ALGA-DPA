@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Avans.FlatGalaxy.Persistence.CelestialBodies;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Persistence
 {
