@@ -3,8 +3,14 @@ using System.Net.Http;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders.File
 {
-    public class HttpFileLoader : IFileLoader
+    class HttpFileLoader : IFileLoader
     {
+        public string[] SupportedSchemas => new[]
+        {
+            "http",
+            "https"
+        };
+
         public string GetContent(Uri source)
         {
             using var client = new HttpClient();
