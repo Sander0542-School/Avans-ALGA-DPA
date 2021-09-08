@@ -1,4 +1,4 @@
-﻿namespace Avans.FlatGalaxy.Persistence.CelestialBodies
+﻿namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
     public class Fold
     {

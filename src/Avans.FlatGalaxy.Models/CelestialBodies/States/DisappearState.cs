@@ -1,4 +1,4 @@
-﻿namespace Avans.FlatGalaxy.Persistence.CelestialBodies.States
+﻿namespace Avans.FlatGalaxy.Models.CelestialBodies.States
 {
     public class DisappearState : ICollisionState
     {

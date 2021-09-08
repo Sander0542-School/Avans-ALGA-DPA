@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Persistenc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Simulation", "src\Avans.FlatGalaxy.Simulation\Avans.FlatGalaxy.Simulation.csproj", "{F4EE573C-B975-42A0-888A-456221CEE227}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avans.FlatGalaxy.Models", "src\Avans.FlatGalaxy.Models\Avans.FlatGalaxy.Models.csproj", "{CD0E92F8-3A94-42C9-A24A-0593C1D4230F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +28,15 @@ Global
 		{F4EE573C-B975-42A0-888A-456221CEE227}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4EE573C-B975-42A0-888A-456221CEE227}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4EE573C-B975-42A0-888A-456221CEE227}.Release|Any CPU.Build.0 = Release|Any CPU
+        {CD0E92F8-3A94-42C9-A24A-0593C1D4230F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {CD0E92F8-3A94-42C9-A24A-0593C1D4230F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {CD0E92F8-3A94-42C9-A24A-0593C1D4230F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {CD0E92F8-3A94-42C9-A24A-0593C1D4230F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F47E1A6A-18B6-49FE-BC7A-B3583408E659} = {7996173C-8F81-4B28-A46A-0529C89FF0C8}
 		{89B5ABAF-73F2-4682-AB42-048DCA3C4BB7} = {7996173C-8F81-4B28-A46A-0529C89FF0C8}
 		{F4EE573C-B975-42A0-888A-456221CEE227} = {7996173C-8F81-4B28-A46A-0529C89FF0C8}
+		{CD0E92F8-3A94-42C9-A24A-0593C1D4230F} = {7996173C-8F81-4B28-A46A-0529C89FF0C8}
 	EndGlobalSection
 EndGlobal
