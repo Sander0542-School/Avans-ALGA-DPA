@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Avans.FlatGalaxy.Simulation\Avans.FlatGalaxy.Simulation.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    </ItemGroup>
+
 </Project>
