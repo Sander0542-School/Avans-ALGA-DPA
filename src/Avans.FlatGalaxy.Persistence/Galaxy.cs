@@ -5,6 +5,6 @@ namespace Avans.FlatGalaxy.Persistence
 {
     public class Galaxy
     {
-        public List<CelestialBody> CelestialBodies { get; set; }
+        public List<CelestialBody> CelestialBodies { get; set; } = new();
     }
 }
