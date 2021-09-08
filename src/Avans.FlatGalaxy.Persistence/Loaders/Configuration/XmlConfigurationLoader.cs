@@ -6,7 +6,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public class XmlConfigurationLoader : ConfigurationLoader
     {
-        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFoldFactory foldFactory) : base(celestialBodyFactory, foldFactory)
+        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
         }
 
