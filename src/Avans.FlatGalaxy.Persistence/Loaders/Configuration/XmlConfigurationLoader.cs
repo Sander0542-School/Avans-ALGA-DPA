@@ -42,16 +42,16 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
                         radius = int.Parse(((XmlText) positionNode["radius"]?.ChildNodes[0])?.Data ?? "0");
                     }
 
-                    var speedNode = (XmlNode) celestialBody["position"];
-                    var speedX = 0;
-                    var speedY = 0;
+                    var speedNode = (XmlNode) celestialBody["speed"];
+                    var speedX = 0.0;
+                    var speedY = 0.0;
                     if (speedNode != null)
                     {
-                        speedX = int.Parse(((XmlText) speedNode["x"]?.ChildNodes[0])?.Data ?? "0");
-                        speedY =  int.Parse(((XmlText) speedNode["y"]?.ChildNodes[0])?.Data ?? "0");
+                        speedX = double.Parse(((XmlText) speedNode["x"]?.ChildNodes[0])?.Data ?? "0");
+                        speedY = double.Parse(((XmlText) speedNode["y"]?.ChildNodes[0])?.Data ?? "0");
                     }
 
-                    galaxy.CelestialBodies.Add(CelestialBodyFactory.Create(name, type, posX, posY, speedX, speedY, radius, color, onCollision));
+                    galaxy.CelestialBodies.Add(CelestialBodyFactory.Create(type, posX, posY, speedX, speedY, radius, color, onCollision, name));
                 }
             }
 

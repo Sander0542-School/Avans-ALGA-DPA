@@ -36,7 +36,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
                     var color = attributes[8];
                     var onCollision = attributes[9];
 
-                    galaxy.CelestialBodies.Add(CelestialBodyFactory.Create(name, type, x, y, vx, vy, radius, color, onCollision));
+                    galaxy.CelestialBodies.Add(CelestialBodyFactory.Create(type, x, y, vx, vy, radius, color, onCollision, name));
                 }
             }
 

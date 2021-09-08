@@ -5,7 +5,6 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
     public abstract class CelestialBody
     {
-        public string Name { get; set; }
         public int X { get; set; }
 
         public int Y { get; set; }
@@ -20,9 +19,8 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 
         public ICollisionState CollisionState { get; set; }
 
-        public CelestialBody(string name, int x, int y, int vx, int vy, int radius, Color color, ICollisionState collisionState)
+        public CelestialBody(int x, int y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
         {
-            Name = name;
             X = x;
             Y = y;
             VX = vx;
