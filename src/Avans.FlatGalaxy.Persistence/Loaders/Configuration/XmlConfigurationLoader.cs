@@ -1,12 +1,13 @@
 ﻿using System.Xml;
 using Avans.FlatGalaxy.Persistence.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
+using Avans.FlatGalaxy.Persistence.Loaders.File;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
 {
     public class XmlConfigurationLoader : ConfigurationLoader
     {
-        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
+        public XmlConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
         {
         }
 
