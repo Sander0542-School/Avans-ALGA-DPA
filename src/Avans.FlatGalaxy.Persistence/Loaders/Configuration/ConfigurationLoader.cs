@@ -7,7 +7,6 @@ namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
     public abstract class ConfigurationLoader
     {
         protected ICelestialBodyFactory CelestialBodyFactory;
-
         private readonly IFileLoader _fileLoader;
 
         protected ConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader)
