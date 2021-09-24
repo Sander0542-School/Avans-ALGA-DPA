@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders.File
+namespace Avans.FlatGalaxy.Persistence.Loaders
 {
     public class FileLoader : IFileLoader
     {

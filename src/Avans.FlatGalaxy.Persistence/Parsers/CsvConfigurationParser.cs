@@ -1,16 +1,13 @@
 using System;
-using System.Drawing;
-using System.IO;
 using System.Linq;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders.File;
+using Avans.FlatGalaxy.Persistence.Loaders;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
+namespace Avans.FlatGalaxy.Persistence.Parsers
 {
-    public class CsvConfigurationLoader : ConfigurationLoader
+    public class CsvConfigurationParser : ConfigurationParser
     {
-        public CsvConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
+        public CsvConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
         {
         }
 

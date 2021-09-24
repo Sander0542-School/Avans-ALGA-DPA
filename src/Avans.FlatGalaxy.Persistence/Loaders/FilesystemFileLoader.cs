@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders.File
+namespace Avans.FlatGalaxy.Persistence.Loaders
 {
     class FileSystemFileLoader : IFileLoader
     {

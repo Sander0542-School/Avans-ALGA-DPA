@@ -1,15 +1,15 @@
 ﻿using System;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders.File;
+using Avans.FlatGalaxy.Persistence.Loaders;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders.Configuration
+namespace Avans.FlatGalaxy.Persistence.Parsers
 {
-    public abstract class ConfigurationLoader
+    public abstract class ConfigurationParser
     {
         protected ICelestialBodyFactory CelestialBodyFactory;
         private readonly IFileLoader _fileLoader;
 
-        protected ConfigurationLoader(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader)
+        protected ConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader)
         {
             CelestialBodyFactory = celestialBodyFactory;
             _fileLoader = fileLoader;

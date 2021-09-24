@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avans.FlatGalaxy.Persistence.Loaders.File
+namespace Avans.FlatGalaxy.Persistence.Loaders
 {
     public interface IFileLoader
     {
