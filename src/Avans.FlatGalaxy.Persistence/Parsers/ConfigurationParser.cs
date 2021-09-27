@@ -1,4 +1,5 @@
 ﻿using System;
+using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
 

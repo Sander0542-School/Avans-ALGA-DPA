@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Persistence;
 
 namespace Avans.FlatGalaxy.Presentation
