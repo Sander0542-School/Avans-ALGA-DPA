@@ -19,6 +19,8 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 
         public ICollisionState CollisionState { get; set; }
 
+        public int Diameter => Radius * 2;
+
         public CelestialBody(int x, int y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
         {
             X = x;

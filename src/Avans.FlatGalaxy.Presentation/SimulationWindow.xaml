@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
         Title="SimulationWindow" Height="600" Width="800">
-    <Canvas x:Name="Canvas" Height="600" Width="800" />
+    <Canvas x:Name="GalaxyCanvas" Height="600" Width="800" />
 </Window>

@@ -37,6 +37,8 @@ namespace Avans.FlatGalaxy.Presentation
             services.AddSingleton<MainWindow>();
             services.AddSingleton<SimulationWindow>();
 
+            services.AddSingleton<Simulation.Simulation>();
+
             services.AddTransient<ICelestialBodyFactory, CelestialBodyFactory>();
             services.AddTransient<IFileLoader, FileLoader>();
             services.AddTransient<ConfigurationParser, XmlConfigurationParser>();
