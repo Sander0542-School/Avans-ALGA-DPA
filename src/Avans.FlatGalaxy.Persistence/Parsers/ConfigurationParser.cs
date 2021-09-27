@@ -6,7 +6,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
 {
     public abstract class ConfigurationParser
     {
-        protected ICelestialBodyFactory CelestialBodyFactory;
+        protected readonly ICelestialBodyFactory CelestialBodyFactory;
         private readonly IFileLoader _fileLoader;
 
         protected ConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader)

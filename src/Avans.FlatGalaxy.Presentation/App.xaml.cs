@@ -9,6 +9,7 @@ using System.Windows;
 using Avans.FlatGalaxy.Persistence.Factories;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
+using Avans.FlatGalaxy.Persistence.Parsers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,9 +35,11 @@ namespace Avans.FlatGalaxy.Presentation
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
+            services.AddSingleton<SimulationWindow>();
 
-            services.AddSingleton<ICelestialBodyFactory, CelestialBodyFactory>();
-            services.AddSingleton<IFileLoader, FileLoader>();
+            services.AddTransient<ICelestialBodyFactory, CelestialBodyFactory>();
+            services.AddTransient<IFileLoader, FileLoader>();
+            services.AddTransient<ConfigurationParser, XmlConfigurationParser>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)

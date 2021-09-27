@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Avans.FlatGalaxy.Persistence.Parsers;
 
 namespace Avans.FlatGalaxy.Presentation
 {
@@ -20,9 +21,36 @@ namespace Avans.FlatGalaxy.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly SimulationWindow _simulationWindow;
+        private readonly ConfigurationParser _configurationParser;
+
+        public MainWindow(SimulationWindow simulationWindow, ConfigurationParser configurationParser)
         {
+            _simulationWindow = simulationWindow;
+            _configurationParser = configurationParser;
+
             InitializeComponent();
+        }
+
+        private void SubmitFile(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(FileInput.Text))
+                {
+                    var fileUri = new Uri(FileInput.Text);
+
+                    var galaxy = _configurationParser.Load(fileUri);
+
+                    _simulationWindow.Show(galaxy);
+                    return;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+            MessageBox.Show(this, "Could not load the file");
         }
     }
 }
