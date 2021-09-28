@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Avans.FlatGalaxy.Persistence\Avans.FlatGalaxy.Persistence.csproj" />
+      <ProjectReference Include="..\Avans.FlatGalaxy.Models\Avans.FlatGalaxy.Models.csproj" />
     </ItemGroup>
 
 </Project>

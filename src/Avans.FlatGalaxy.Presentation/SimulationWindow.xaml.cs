@@ -5,16 +5,17 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Presentation.Extensions;
+using Avans.FlatGalaxy.Simulation;
 
 namespace Avans.FlatGalaxy.Presentation
 {
     public partial class SimulationWindow : Window
     {
-        private readonly Simulation.Simulation _simulation;
+        private readonly ISimulator _simulator;
 
-        public SimulationWindow(Simulation.Simulation simulation)
+        public SimulationWindow(ISimulator simulator)
         {
-            _simulation = simulation;
+            _simulator = simulator;
             InitializeComponent();
 
             Loaded += OnLoaded;
@@ -33,15 +34,15 @@ namespace Avans.FlatGalaxy.Presentation
 
         private void OnRender(object? sender, EventArgs e)
         {
-            Draw(_simulation.Galaxy);
+            if (_simulator.Galaxy != null) Draw(_simulator.Galaxy);
         }
 
         public void Show(Galaxy galaxy)
         {
             Show();
 
-            _simulation.Galaxy = galaxy;
-            _simulation.Resume();
+            _simulator.Galaxy = galaxy;
+            _simulator.Resume();
         }
 
         private void Draw(Galaxy galaxy)
@@ -58,21 +59,11 @@ namespace Avans.FlatGalaxy.Presentation
                 };
 
                 GalaxyCanvas.Children.Add(ellipse);
-                ellipse.SetValue(Canvas.LeftProperty, (double)celestialBody.X);
-                ellipse.SetValue(Canvas.TopProperty, (double)celestialBody.Y);
+                Canvas.SetLeft(ellipse, celestialBody.CenterX);
+                Canvas.SetTop(ellipse, celestialBody.CenterY);
             }
 
-            foreach (var fold in galaxy.Folds)
-            {
-                GalaxyCanvas.Children.Add(new Line
-                {
-                    Fill = new SolidColorBrush(Colors.Blue),
-                    X1 = fold.Body1.X,
-                    Y1 = fold.Body1.Y,
-                    X2 = fold.Body2.X,
-                    Y2 = fold.Body2.Y,
-                });
-            }
+            Console.WriteLine("Galaxy drawn");
         }
     }
 }

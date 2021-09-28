@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Avans.FlatGalaxy.Persistence.Factories;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
 using Avans.FlatGalaxy.Persistence.Parsers;
+using Avans.FlatGalaxy.Simulation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,7 +32,7 @@ namespace Avans.FlatGalaxy.Presentation
             services.AddSingleton<MainWindow>();
             services.AddSingleton<SimulationWindow>();
 
-            services.AddSingleton<Simulation.Simulation>();
+            services.AddSingleton<ISimulator, Simulator>();
 
             services.AddTransient<ICelestialBodyFactory, CelestialBodyFactory>();
             services.AddTransient<IFileLoader, FileLoader>();
