@@ -71,8 +71,8 @@ namespace Avans.FlatGalaxy.Simulation
         {
             foreach (var celestialBody in Galaxy.CelestialBodies)
             {
-                celestialBody.X += celestialBody.VX;// / deltaTime;
-                celestialBody.Y += celestialBody.VY;// / deltaTime;
+                celestialBody.X += celestialBody.VX * deltaTime;
+                celestialBody.Y += celestialBody.VY * deltaTime;
             }
         }
     }
