@@ -14,7 +14,7 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 100;
+        private int _speed = 50;
         private bool _running = false;
 
         private CancellationTokenSource _source;
@@ -54,7 +54,7 @@ namespace Avans.FlatGalaxy.Simulation
                 Task.Run(async () => {
                     var currentTime = DateTime.UtcNow;
                     var tickTime = (currentTime - _lastTick).TotalMilliseconds;
-                    var deltaTime = tickTime * _speed;
+                    var deltaTime = tickTime * _speed / 1000;
 
                     Update(deltaTime);
 
