@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
 
@@ -59,8 +60,24 @@ namespace Avans.FlatGalaxy.Presentation
                 };
 
                 GalaxyCanvas.Children.Add(ellipse);
-                Canvas.SetLeft(ellipse, celestialBody.CenterX);
-                Canvas.SetTop(ellipse, celestialBody.CenterY);
+                Canvas.SetLeft(ellipse, celestialBody.X);
+                Canvas.SetTop(ellipse, celestialBody.Y);
+
+                if (celestialBody is Planet planet)
+                {
+                    foreach (var neighbour in planet.Neighbours)
+                    {
+                        GalaxyCanvas.Children.Add(new Line
+                        {
+                            Stroke = new SolidColorBrush(Colors.Blue),
+                            X1 = celestialBody.CenterX,
+                            Y1 = celestialBody.CenterY,
+                            X2 = neighbour.CenterX,
+                            Y2 = neighbour.CenterY,
+                            SnapsToDevicePixels = true
+                        });
+                    }
+                }
             }
 
             Console.WriteLine("Galaxy drawn");
