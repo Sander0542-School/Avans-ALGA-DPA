@@ -77,6 +77,9 @@ namespace Avans.FlatGalaxy.Simulation
                 var nextX = celestialBody.X + celestialBody.VX * deltaTime;
                 var nextY = celestialBody.Y + celestialBody.VY * deltaTime;
 
+                var maxX = Width - celestialBody.Radius * 2;
+                var maxY = Height - celestialBody.Radius * 2;
+
                 if (nextX < 0)
                 {
                     nextX -= nextX * 2;
@@ -87,14 +90,14 @@ namespace Avans.FlatGalaxy.Simulation
                     nextY -= nextY * 2;
                     celestialBody.VY = -celestialBody.VY;
                 }
-                if (nextX > Width)
+                if (nextX > maxX)
                 {
-                    nextX -= (nextX - Width) * 2;
+                    nextX -= (nextX - maxX) * 2;
                     celestialBody.VX = -celestialBody.VX;
                 }
-                if (nextY > Height)
+                if (nextY > maxY)
                 {
-                    nextY -= (nextY - Height) * 2;
+                    nextY -= (nextY - maxY) * 2;
                     celestialBody.VY = -celestialBody.VY;
                 }
 

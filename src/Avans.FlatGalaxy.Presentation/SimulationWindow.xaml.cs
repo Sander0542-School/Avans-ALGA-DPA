@@ -62,6 +62,7 @@ namespace Avans.FlatGalaxy.Presentation
                 GalaxyCanvas.Children.Add(ellipse);
                 Canvas.SetLeft(ellipse, celestialBody.X);
                 Canvas.SetTop(ellipse, celestialBody.Y);
+                Canvas.SetZIndex(ellipse, 10);
 
                 if (celestialBody is Planet planet)
                 {
