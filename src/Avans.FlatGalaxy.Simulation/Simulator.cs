@@ -7,9 +7,6 @@ namespace Avans.FlatGalaxy.Simulation
 {
     public class Simulator : ISimulator
     {
-        public const int Width = 800;
-        public const int Height = 600;
-
         private const float Second = 1000;
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
@@ -22,6 +19,9 @@ namespace Avans.FlatGalaxy.Simulation
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
+
+        public int Width => 800;
+        public int Height => 600;
 
         public Galaxy Galaxy
         {
