@@ -4,6 +4,6 @@ namespace Avans.FlatGalaxy.Persistence.Factories.Common
 {
     public interface ICelestialBodyFactory
     {
-        CelestialBody Create(string type, int x, int y, double vx, double vy, int radius, string color, string collision, string name = null);
+        CelestialBody Create(string type, double x, double y, double vx, double vy, int radius, string color, string collision, string name = null);
     }
 }
