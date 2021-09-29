@@ -14,7 +14,7 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 50;
+        private int _speed = 5;
         private bool _running = false;
 
         private CancellationTokenSource _source;
