@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
 
@@ -16,6 +18,8 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
         {
             var galaxy = new Galaxy();
             var lines = content.Split(Environment.NewLine).Skip(1).ToArray();
+
+            var planetNeighbours = new Dictionary<Planet, string[]>();
 
             foreach (var line in lines)
             {
@@ -33,11 +37,14 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                     int.TryParse(attributes[7], out var radius);
                     var color = attributes[8];
                     var onCollision = attributes[9];
-
-                    galaxy.CelestialBodies.Add(CelestialBodyFactory.Create(type, x, y, vx, vy, radius, color, onCollision, name));
+                    
+                    var body = CelestialBodyFactory.Create(type, x, y, vx, vy, radius, color, onCollision, name);
+                    galaxy.CelestialBodies.Add(body);
+                    if (body is Planet planet) planetNeighbours.Add(planet, neighbours);
                 }
             }
 
+            MapNeighbours(galaxy, planetNeighbours);
             return galaxy;
         }
     }
