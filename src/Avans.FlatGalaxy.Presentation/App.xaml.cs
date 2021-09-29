@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using Avans.FlatGalaxy.Persistence.Factories;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
