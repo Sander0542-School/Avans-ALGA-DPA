@@ -11,7 +11,7 @@ namespace Avans.FlatGalaxy.Persistence.Factories
         public CelestialBody Create(string type, double x, double y, double vx, double vy, int radius, string colorName, string collisionName, string name = null)
         {
             var color = Color.FromName(colorName);
-            if (color.IsEmpty) color = Color.White;
+            if (!color.IsKnownColor) color = Color.White;
             
             var collision = GetCollisionState(collisionName);
 
