@@ -30,6 +30,7 @@ namespace Avans.FlatGalaxy.Presentation
 
                     var galaxy = _configurationParser.Load(fileUri);
 
+                    Hide();
                     _simulationWindow.Show(galaxy);
                     return;
                 }
