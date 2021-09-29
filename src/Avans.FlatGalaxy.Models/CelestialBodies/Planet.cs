@@ -10,7 +10,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 
         public List<Planet> Neighbours { get; set; } = new();
 
-        public Planet(string name, int x, int y, double vx, double vy, int radius, Color color, ICollisionState collisionState) : base(x, y, vx, vy, radius, color, collisionState)
+        public Planet(string name, double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState) : base(x, y, vx, vy, radius, color, collisionState)
         {
             Name = name;
         }

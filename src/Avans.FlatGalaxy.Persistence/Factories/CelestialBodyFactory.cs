@@ -8,9 +8,11 @@ namespace Avans.FlatGalaxy.Persistence.Factories
 {
     public class CelestialBodyFactory : ICelestialBodyFactory
     {
-        public CelestialBody Create(string type, int x, int y, double vx, double vy, int radius, string colorName, string collisionName, string name = null)
+        public CelestialBody Create(string type, double x, double y, double vx, double vy, int radius, string colorName, string collisionName, string name = null)
         {
             var color = Color.FromName(colorName);
+            if (color.IsEmpty) color = Color.White;
+            
             var collision = GetCollisionState(collisionName);
 
             return type.ToLower() switch

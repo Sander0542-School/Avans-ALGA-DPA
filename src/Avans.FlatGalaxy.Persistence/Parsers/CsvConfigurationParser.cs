@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
@@ -29,12 +30,14 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
 
                     var name = attributes[0];
                     var type = attributes[1];
-                    int.TryParse(attributes[2], out var x);
-                    int.TryParse(attributes[3], out var y);
-                    double.TryParse(attributes[4], out var vx);
-                    double.TryParse(attributes[5], out var vy);
+                    
+                    var x = double.Parse(attributes[2], CultureInfo.InvariantCulture);
+                    var y = double.Parse(attributes[3], CultureInfo.InvariantCulture);
+                    var vx = double.Parse(attributes[4], CultureInfo.InvariantCulture);
+                    var vy = double.Parse(attributes[5], CultureInfo.InvariantCulture);
+                    var radius = int.Parse(attributes[7], CultureInfo.InvariantCulture);
+                    
                     var neighbours = attributes[6].Split(',');
-                    int.TryParse(attributes[7], out var radius);
                     var color = attributes[8];
                     var onCollision = attributes[9];
                     

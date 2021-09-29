@@ -24,7 +24,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         public double CenterX => X + Radius;
         public double CenterY => Y + Radius;
 
-        public CelestialBody(int x, int y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
+        public CelestialBody(double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
         {
             X = x;
             Y = y;

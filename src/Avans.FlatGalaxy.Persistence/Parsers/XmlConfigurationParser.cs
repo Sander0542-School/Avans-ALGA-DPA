@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
@@ -9,8 +10,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
 {
     public class XmlConfigurationParser : ConfigurationParser
     {
-        public XmlConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(
-            celestialBodyFactory, fileLoader)
+        public XmlConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
         {
         }
 
@@ -36,13 +36,13 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                 var onCollision = ((XmlText) celestialBody["oncollision"]?.ChildNodes[0])?.Data;
 
                 var positionNode = (XmlNode) celestialBody["position"];
-                var posX = 0;
-                var posY = 0;
+                var posX = 0.0;
+                var posY = 0.0;
                 var radius = 0;
                 if (positionNode != null)
                 {
-                    posX = int.Parse(((XmlText) positionNode["x"]?.ChildNodes[0])?.Data ?? "0");
-                    posY = int.Parse(((XmlText) positionNode["y"]?.ChildNodes[0])?.Data ?? "0");
+                    posX = double.Parse(((XmlText) positionNode["x"]?.ChildNodes[0])?.Data ?? "0", CultureInfo.InvariantCulture);
+                    posY = double.Parse(((XmlText) positionNode["y"]?.ChildNodes[0])?.Data ?? "0", CultureInfo.InvariantCulture);
                     radius = int.Parse(((XmlText) positionNode["radius"]?.ChildNodes[0])?.Data ?? "0");
                 }
 
@@ -51,8 +51,8 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                 var speedY = 0.0;
                 if (speedNode != null)
                 {
-                    speedX = double.Parse(((XmlText) speedNode["x"]?.ChildNodes[0])?.Data ?? "0");
-                    speedY = double.Parse(((XmlText) speedNode["y"]?.ChildNodes[0])?.Data ?? "0");
+                    speedX = double.Parse(((XmlText) speedNode["x"]?.ChildNodes[0])?.Data ?? "0", CultureInfo.InvariantCulture);
+                    speedY = double.Parse(((XmlText) speedNode["y"]?.ChildNodes[0])?.Data ?? "0", CultureInfo.InvariantCulture);
                 }
 
                 var neighbours = new List<string>();
@@ -66,8 +66,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                     }
                 }
 
-                var body = CelestialBodyFactory.Create(type, posX, posY, speedX, speedY, radius, color, onCollision,
-                    name);
+                var body = CelestialBodyFactory.Create(type, posX, posY, speedX, speedY, radius, color, onCollision, name);
                 galaxy.CelestialBodies.Add(body);
 
                 if (body is Planet planet) planetNeighbours.Add(planet, neighbours.ToArray());
