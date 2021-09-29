@@ -7,6 +7,9 @@ namespace Avans.FlatGalaxy.Simulation
 {
     public class Simulator : ISimulator
     {
+        public const int Width = 800;
+        public const int Height = 600;
+
         private const float Second = 1000;
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
@@ -71,8 +74,32 @@ namespace Avans.FlatGalaxy.Simulation
         {
             foreach (var celestialBody in Galaxy.CelestialBodies)
             {
-                celestialBody.X += celestialBody.VX * deltaTime;
-                celestialBody.Y += celestialBody.VY * deltaTime;
+                var nextX = celestialBody.X + celestialBody.VX * deltaTime;
+                var nextY = celestialBody.Y + celestialBody.VY * deltaTime;
+
+                if (nextX < 0)
+                {
+                    nextX -= nextX * 2;
+                    celestialBody.VX = -celestialBody.VX;
+                }
+                if (nextY < 0)
+                {
+                    nextY -= nextY * 2;
+                    celestialBody.VY = -celestialBody.VY;
+                }
+                if (nextX > Width)
+                {
+                    nextX -= (nextX - Width) * 2;
+                    celestialBody.VX = -celestialBody.VX;
+                }
+                if (nextY > Height)
+                {
+                    nextY -= (nextY - Height) * 2;
+                    celestialBody.VY = -celestialBody.VY;
+                }
+
+                celestialBody.X = nextX;
+                celestialBody.Y = nextY;
             }
         }
     }

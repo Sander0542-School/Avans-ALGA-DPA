@@ -5,6 +5,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
-        Title="SimulationWindow" Height="600" Width="800">
+        Title="SimulationWindow" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanMinimize"
+        Background="DimGray">
     <Canvas x:Name="GalaxyCanvas" Height="600" Width="800" />
 </Window>
