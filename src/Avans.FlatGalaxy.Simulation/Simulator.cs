@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Simulation.Collision;
+using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -14,14 +16,17 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 5;
+        private int _speed = 50;
         private bool _running = false;
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
+        private CollisionDetector _collisionDetector;
 
-        public int Width => 800;
-        public int Height => 600;
+        public Simulator()
+        {
+            _collisionDetector = new QuadTreeCollisionDetector();
+        }
 
         public Galaxy Galaxy
         {
@@ -32,6 +37,8 @@ namespace Avans.FlatGalaxy.Simulation
                 _galaxy = value;
             }
         }
+
+        public QuadTree QuadTree { get; set; }
 
         public void Resume()
         {
@@ -61,6 +68,8 @@ namespace Avans.FlatGalaxy.Simulation
 
                     Update(deltaTime);
 
+                    _collisionDetector.Detect(this);
+
                     _lastTick = DateTime.UtcNow;
 
                     var nextTick = (int)(TpsTime - tickTime);
@@ -77,8 +86,8 @@ namespace Avans.FlatGalaxy.Simulation
                 var nextX = celestialBody.X + celestialBody.VX * deltaTime;
                 var nextY = celestialBody.Y + celestialBody.VY * deltaTime;
 
-                var maxX = Width - celestialBody.Radius * 2;
-                var maxY = Height - celestialBody.Radius * 2;
+                var maxX = ISimulator.Width - celestialBody.Radius * 2;
+                var maxY = ISimulator.Height - celestialBody.Radius * 2;
 
                 if (nextX < 0)
                 {
