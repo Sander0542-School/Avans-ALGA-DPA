@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Simulation.Collision;
+using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -37,6 +38,8 @@ namespace Avans.FlatGalaxy.Simulation
             }
         }
 
+        public QuadTree QuadTree { get; set; }
+
         public void Resume()
         {
             if (_running) return;
@@ -65,7 +68,7 @@ namespace Avans.FlatGalaxy.Simulation
 
                     Update(deltaTime);
 
-                    _collisionDetector.Detect(_galaxy);
+                    _collisionDetector.Detect(this);
 
                     _lastTick = DateTime.UtcNow;
 

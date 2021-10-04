@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Simulation.Collision
@@ -13,11 +12,11 @@ namespace Avans.FlatGalaxy.Simulation.Collision
             _collisions = new List<KeyValuePair<CelestialBody, CelestialBody>>();
         }
 
-        protected abstract void Collide(Galaxy galaxy);
+        protected abstract void Collide(ISimulator simulator);
 
-        public void Detect(Galaxy galaxy)
+        public void Detect(ISimulator simulator)
         {
-            Collide(galaxy);
+            Collide(simulator);
 
             TriggerEnd();
         }

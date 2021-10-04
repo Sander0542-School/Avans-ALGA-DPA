@@ -1,4 +1,5 @@
 ﻿using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -9,6 +10,8 @@ namespace Avans.FlatGalaxy.Simulation
         public const int Height = 600;
 
         Galaxy Galaxy { get; set; }
+
+        QuadTree QuadTree { get; set; }
 
         void Resume();
 

@@ -10,9 +10,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
         public const int Size = 4;
 
         private int _depth;
-        private Bounds _bounds;
 
-        public IList<CelestialBody> Elements;
+        public Bounds Bounds { get; }
+
+        public IList<CelestialBody> Elements { get; private set; }
 
         public QuadTree NorthEast { get; private set; }
 
@@ -25,7 +26,7 @@ namespace Avans.FlatGalaxy.Simulation.Data
         public QuadTree(Bounds bounds, int depth = 1)
         {
             _depth = depth;
-            _bounds = bounds;
+            Bounds = bounds;
             Elements = new List<CelestialBody>();
         }
 
@@ -50,10 +51,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         public void Subdivide()
         {
-            NorthEast = new QuadTree(_bounds.NorthEast, _depth + 1);
-            NorthWest = new QuadTree(_bounds.NorthWest, _depth + 1);
-            SouthEast = new QuadTree(_bounds.SouthEast, _depth + 1);
-            SouthWest = new QuadTree(_bounds.SouthWest, _depth + 1);
+            NorthEast = new QuadTree(Bounds.NorthEast, _depth + 1);
+            NorthWest = new QuadTree(Bounds.NorthWest, _depth + 1);
+            SouthEast = new QuadTree(Bounds.SouthEast, _depth + 1);
+            SouthWest = new QuadTree(Bounds.SouthWest, _depth + 1);
 
             foreach (var element in Elements)
             {
@@ -65,10 +66,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         private void InsertSub(CelestialBody element)
         {
-            if (NorthEast._bounds.Inside(element)) NorthEast.Insert(element);
-            if (NorthWest._bounds.Inside(element)) NorthWest.Insert(element);
-            if (SouthEast._bounds.Inside(element)) SouthEast.Insert(element);
-            if (SouthWest._bounds.Inside(element)) SouthWest.Insert(element);
+            if (NorthEast.Bounds.Inside(element)) NorthEast.Insert(element);
+            if (NorthWest.Bounds.Inside(element)) NorthWest.Insert(element);
+            if (SouthEast.Bounds.Inside(element)) SouthEast.Insert(element);
+            if (SouthWest.Bounds.Inside(element)) SouthWest.Insert(element);
         }
     }
 }
