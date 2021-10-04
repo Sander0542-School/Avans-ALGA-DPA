@@ -12,7 +12,7 @@ namespace Avans.FlatGalaxy.Persistence.Factories
         {
             var color = Color.FromName(colorName);
             if (!color.IsKnownColor) color = Color.White;
-            
+
             var collision = GetCollisionState(collisionName);
 
             return type.ToLower() switch
@@ -32,7 +32,7 @@ namespace Avans.FlatGalaxy.Persistence.Factories
                 "disappear" => new DisappearState(),
                 "explode" => new ExplodeState(),
                 "grow" => new GrowState(),
-                _ => throw new NotImplementedException($"The {collisionName} collision has not been implemented yet")
+                _ => new NullCollisionState()
             };
         }
     }
