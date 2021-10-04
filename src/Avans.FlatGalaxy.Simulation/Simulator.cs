@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
+using Avans.FlatGalaxy.Simulation.PathFinding;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -16,7 +20,7 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 50;
+        private int _speed = 500;
         private bool _running = false;
 
         private CancellationTokenSource _source;
@@ -39,6 +43,7 @@ namespace Avans.FlatGalaxy.Simulation
         }
 
         public QuadTree QuadTree { get; set; }
+        public List<Planet> PathSteps { get; set; }
 
         public void Resume()
         {
@@ -69,6 +74,8 @@ namespace Avans.FlatGalaxy.Simulation
                     Update(deltaTime);
 
                     _collisionDetector.Detect(this);
+                    
+                    PathSteps = new ShortestPathFinder().Get(this);
 
                     _lastTick = DateTime.UtcNow;
 

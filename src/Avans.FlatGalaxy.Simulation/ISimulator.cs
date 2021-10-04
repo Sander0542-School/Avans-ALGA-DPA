@@ -1,4 +1,6 @@
-﻿using Avans.FlatGalaxy.Models;
+﻿using System.Collections.Generic;
+using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
@@ -12,6 +14,8 @@ namespace Avans.FlatGalaxy.Simulation
         Galaxy Galaxy { get; set; }
 
         QuadTree QuadTree { get; set; }
+
+        List<Planet> PathSteps { get; set; }
 
         void Resume();
 
