@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
 
 namespace Avans.FlatGalaxy.Models.CelestialBodies
@@ -33,6 +34,14 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             Radius = radius;
             Color = color;
             CollisionState = collisionState;
+        }
+
+        public bool IsColliding(CelestialBody other)
+        {
+            var dist = Math.Pow(CenterX - other.CenterX, 2) + Math.Pow(CenterY - other.CenterY, 2);
+            var radSum = Math.Pow(Radius + other.Radius, 2);
+
+            return dist <= radSum;
         }
     }
 }
