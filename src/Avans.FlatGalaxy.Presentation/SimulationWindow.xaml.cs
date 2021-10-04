@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -7,6 +8,7 @@ using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
+using Avans.FlatGalaxy.Simulation.PathFinding;
 
 namespace Avans.FlatGalaxy.Presentation
 {
@@ -52,6 +54,9 @@ namespace Avans.FlatGalaxy.Presentation
         private void Draw(Galaxy galaxy)
         {
             GalaxyCanvas.Children.Clear();
+            
+            var stepPlanets = galaxy.CelestialBodies.OfType<Planet>().OrderByDescending(planet => planet.Radius).ToList();
+            var steps = new ShortestPath().Calculate(stepPlanets[0], stepPlanets[1]);
 
             foreach (var celestialBody in galaxy.CelestialBodies)
             {
@@ -59,7 +64,7 @@ namespace Avans.FlatGalaxy.Presentation
                 {
                     Height = celestialBody.Diameter,
                     Width = celestialBody.Diameter,
-                    Fill = new SolidColorBrush(celestialBody.Color.ToColor()),
+                    Fill = new SolidColorBrush(steps.Contains(celestialBody) ? Colors.Chartreuse : celestialBody.Color.ToColor()),
                 };
 
                 GalaxyCanvas.Children.Add(ellipse);
@@ -73,7 +78,7 @@ namespace Avans.FlatGalaxy.Presentation
                     {
                         GalaxyCanvas.Children.Add(new Line
                         {
-                            Stroke = new SolidColorBrush(Colors.Blue),
+                            Stroke = new SolidColorBrush((steps.Contains(planet) && steps.Contains(neighbour)) ? Colors.Chartreuse : Colors.Blue) ,
                             X1 = celestialBody.CenterX,
                             Y1 = celestialBody.CenterY,
                             X2 = neighbour.CenterX,
