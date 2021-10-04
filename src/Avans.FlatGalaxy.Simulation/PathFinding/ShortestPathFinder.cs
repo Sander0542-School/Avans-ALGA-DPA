@@ -8,7 +8,7 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Simulation.PathFinding
 {
-    public class ShortestPath
+    public class ShortestPathFinder : IPathFinder
     {
         public List<Planet> Calculate(Planet start, Planet end)
         {
