@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Simulation.Collision;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -14,12 +15,17 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 5;
+        private int _speed = 50;
         private bool _running = false;
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
+        private CollisionDetector _collisionDetector;
 
+        public Simulator()
+        {
+            _collisionDetector = new QuadTreeCollisionDetector();
+        }
 
         public Galaxy Galaxy
         {
@@ -58,6 +64,8 @@ namespace Avans.FlatGalaxy.Simulation
                     var deltaTime = tickTime * _speed / 1000;
 
                     Update(deltaTime);
+
+                    _collisionDetector.Detect(_galaxy);
 
                     _lastTick = DateTime.UtcNow;
 
