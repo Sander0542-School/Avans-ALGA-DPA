@@ -56,7 +56,7 @@ namespace Avans.FlatGalaxy.Presentation
             GalaxyCanvas.Children.Clear();
             
             var stepPlanets = galaxy.CelestialBodies.OfType<Planet>().OrderByDescending(planet => planet.Radius).ToList();
-            var steps = new ShortestPath().Calculate(stepPlanets[0], stepPlanets[1]);
+            var steps = new ShortestPathFinder().Calculate(stepPlanets[0], stepPlanets[1]);
 
             foreach (var celestialBody in galaxy.CelestialBodies)
             {
