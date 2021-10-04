@@ -4,7 +4,6 @@
     {
         public void Collide(CelestialBody celestialBody)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
