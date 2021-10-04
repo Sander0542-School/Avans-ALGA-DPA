@@ -8,9 +8,9 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Simulation.PathFinding
 {
-    public class ShortestPathFinder : IPathFinder
+    public class ShortestPathFinder : PathFinder
     {
-        public List<Planet> Calculate(Planet start, Planet end)
+        public override List<Planet> Find(Planet start, Planet end)
         {
             var previous = new Dictionary<Planet, Planet>();
             var queue = new Queue<Planet>();
