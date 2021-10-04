@@ -103,8 +103,8 @@ namespace Avans.FlatGalaxy.Presentation
             {
                 Stroke = new SolidColorBrush(Colors.Red),
                 Fill = new SolidColorBrush(Colors.Transparent),
-                Width = bounds.West - bounds.East,
-                Height = bounds.South - bounds.North,
+                Width = bounds.Width,
+                Height = bounds.Height,
             };
             Canvas.SetTop(rect, bounds.North);
             Canvas.SetLeft(rect, bounds.East);
