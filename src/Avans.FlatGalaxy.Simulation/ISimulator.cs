@@ -4,9 +4,9 @@ namespace Avans.FlatGalaxy.Simulation
 {
     public interface ISimulator
     {
-        int Width { get; }
+        public const int Width = 800;
 
-        int Height { get; }
+        public const int Height = 600;
 
         Galaxy Galaxy { get; set; }
 

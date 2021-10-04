@@ -20,8 +20,6 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationTokenSource _source;
         private CancellationToken _token;
 
-        public int Width => 800;
-        public int Height => 600;
 
         public Galaxy Galaxy
         {
@@ -77,8 +75,8 @@ namespace Avans.FlatGalaxy.Simulation
                 var nextX = celestialBody.X + celestialBody.VX * deltaTime;
                 var nextY = celestialBody.Y + celestialBody.VY * deltaTime;
 
-                var maxX = Width - celestialBody.Radius * 2;
-                var maxY = Height - celestialBody.Radius * 2;
+                var maxX = ISimulator.Width - celestialBody.Radius * 2;
+                var maxY = ISimulator.Height - celestialBody.Radius * 2;
 
                 if (nextX < 0)
                 {

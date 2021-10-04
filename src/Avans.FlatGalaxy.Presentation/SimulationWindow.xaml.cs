@@ -19,8 +19,8 @@ namespace Avans.FlatGalaxy.Presentation
             _simulator = simulator;
             InitializeComponent();
 
-            GalaxyCanvas.Width = _simulator.Width;
-            GalaxyCanvas.Height = _simulator.Height;
+            GalaxyCanvas.Width = ISimulator.Width;
+            GalaxyCanvas.Height = ISimulator.Height;
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
