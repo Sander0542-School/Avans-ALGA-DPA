@@ -1,6 +1,4 @@
-﻿using System;
-using Avans.FlatGalaxy.Models;
-using Avans.FlatGalaxy.Simulation.Collision;
+﻿using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation.Extensions
