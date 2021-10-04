@@ -43,7 +43,7 @@ namespace Avans.FlatGalaxy.Presentation
         {
             GalaxyCanvas.Children.Clear();
 
-            if (_simulator.Galaxy != null) { Draw(_simulator.Galaxy); }
+            if (_simulator.Galaxy != null) { Draw(_simulator); }
             if (_simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
@@ -55,19 +55,17 @@ namespace Avans.FlatGalaxy.Presentation
             _simulator.Resume();
         }
 
-        private void Draw(Galaxy galaxy)
+        private void Draw(ISimulator simulator)
         {
             GalaxyCanvas.Children.Clear();
-            
-            var stepPlanets = galaxy.CelestialBodies.OfType<Planet>().OrderByDescending(planet => planet.Radius).ToList();
-            var steps = new ShortestPathFinder().Calculate(stepPlanets[0], stepPlanets[1]);
-            foreach (var celestialBody in galaxy.CelestialBodies)
+
+            foreach (var celestialBody in simulator.Galaxy.CelestialBodies)
             {
                 var ellipse = new Ellipse
                 {
                     Height = celestialBody.Diameter,
                     Width = celestialBody.Diameter,
-                    Fill = new SolidColorBrush(steps.Contains(celestialBody) ? Colors.Chartreuse : celestialBody.Color.ToColor()),
+                    Fill = new SolidColorBrush(simulator.PathSteps?.Contains(celestialBody) ?? false ? Colors.Chartreuse : celestialBody.Color.ToColor()),
                 };
 
                 GalaxyCanvas.Children.Add(ellipse);
@@ -79,9 +77,15 @@ namespace Avans.FlatGalaxy.Presentation
                 {
                     foreach (var neighbour in planet.Neighbours)
                     {
+                        var isStepLine = false;
+                        if (simulator.PathSteps != null)
+                        {
+                            isStepLine = simulator.PathSteps.Contains(planet) && simulator.PathSteps.Contains(neighbour);
+                        }
+                        
                         GalaxyCanvas.Children.Add(new Line
                         {
-                            Stroke = new SolidColorBrush((steps.Contains(planet) && steps.Contains(neighbour)) ? Colors.Chartreuse : Colors.Blue) ,
+                            Stroke = new SolidColorBrush(isStepLine ? Colors.Chartreuse : Colors.Blue) ,
                             X1 = celestialBody.CenterX,
                             Y1 = celestialBody.CenterY,
                             X2 = neighbour.CenterX,
