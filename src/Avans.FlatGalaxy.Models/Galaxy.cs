@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Models.CelestialBodies.States;
 
 namespace Avans.FlatGalaxy.Models
 {
@@ -45,7 +47,25 @@ namespace Avans.FlatGalaxy.Models
                 case "DisappearState":
                     Remove(celestialBody);
                     break;
+                case "ExplodeState":
+                    ExplodeStateEvent(celestialBody);
+                    break;
             }
+        }
+
+        private void ExplodeStateEvent(CelestialBody celestialBody)
+        {
+            Remove(celestialBody);
+
+            for (var i = 0; i < 5; i++)
+            {
+                Add(new Asteroid(celestialBody.X, celestialBody.Y, RandomSpeed(), RandomSpeed(), 5, Color.Black, new BounceState()));
+            }
+        }
+
+        private double RandomSpeed()
+        {
+            return new Random().NextDouble() * 10 - 5;
         }
     }
 }
