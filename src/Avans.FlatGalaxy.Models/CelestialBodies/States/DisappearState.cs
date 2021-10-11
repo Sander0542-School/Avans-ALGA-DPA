@@ -2,8 +2,9 @@
 {
     public class DisappearState : ICollisionState
     {
-        public void Collide(CelestialBody celestialBody)
+        public void Collide(CelestialBody self, CelestialBody other)
         {
+            self.TriggerStateEvent();
         }
     }
 }

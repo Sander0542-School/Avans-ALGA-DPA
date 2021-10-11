@@ -2,7 +2,7 @@
 {
     public class NullCollisionState : ICollisionState
     {
-        public void Collide(CelestialBody celestialBody)
+        public void Collide(CelestialBody self, CelestialBody other)
         {
             // do nothing
         }
