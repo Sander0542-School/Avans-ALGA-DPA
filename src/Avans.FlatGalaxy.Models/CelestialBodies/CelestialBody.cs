@@ -25,7 +25,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         public double CenterX => X + Radius;
         public double CenterY => Y + Radius;
 
-        public CelestialBody(double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
+        public CelestialBody(double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState = null)
         {
             X = x;
             Y = y;
@@ -33,7 +33,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             VY = vy;
             Radius = radius;
             Color = color;
-            CollisionState = collisionState;
+            CollisionState = collisionState ?? new NullCollisionState();
         }
 
         public bool IsColliding(CelestialBody other)
