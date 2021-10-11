@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
+using Avans.FlatGalaxy.Models.Common;
 
 namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
-    public abstract class CelestialBody
+    public abstract class CelestialBody : IObservable<CelestialBody>
     {
+        private readonly IList<IObserver<CelestialBody>> _observers;
+
         public double X { get; set; }
 
         public double Y { get; set; }
@@ -34,6 +39,8 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             Radius = radius;
             Color = color;
             CollisionState = collisionState ?? new NullCollisionState();
+
+            _observers = new List<IObserver<CelestialBody>>();
         }
 
         public bool IsColliding(CelestialBody other)
@@ -47,6 +54,21 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         public void Collide(CelestialBody other)
         {
             CollisionState.Collide(this, other);
+        }
+
+        public IDisposable Subscribe(IObserver<CelestialBody> observer)
+        {
+            _observers.Add(observer);
+
+            return new Unsubscriber<CelestialBody>(_observers, observer);
+        }
+
+        public void TriggerStateEvent()
+        {
+            foreach (var observer in _observers.ToList())
+            {
+                observer.OnNext(this);
+            }
         }
     }
 }
