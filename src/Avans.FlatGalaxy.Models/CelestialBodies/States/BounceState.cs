@@ -4,6 +4,8 @@
     {
         public void Collide(CelestialBody self, CelestialBody other)
         {
+            self.VX = -self.VX;
+            self.VY = -self.VY;
         }
     }
 }
