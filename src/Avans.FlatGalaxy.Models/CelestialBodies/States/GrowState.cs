@@ -4,6 +4,12 @@
     {
         public void Collide(CelestialBody self, CelestialBody other)
         {
+            self.Radius += 1;
+
+            if (self.Radius > 20)
+            {
+                self.CollisionState = new ExplodeState();
+            }
         }
     }
 }
