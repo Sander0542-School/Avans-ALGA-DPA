@@ -8,13 +8,28 @@ using Avans.FlatGalaxy.Persistence.Loaders;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {
-    public class XmlConfigurationParser : ConfigurationParser
+    public class XmlConfigurationParser : ConfigurationParserBase
     {
-        public XmlConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
+        public XmlConfigurationParser(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
         }
 
-        protected override Galaxy Load(string content)
+        public override bool CanParse(string content)
+        {
+            try
+            {
+                var document = new XmlDocument();
+                document.LoadXml(content);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public override Galaxy Parse(string content)
         {
             var galaxy = new Galaxy();
 

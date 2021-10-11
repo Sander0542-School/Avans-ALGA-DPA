@@ -6,16 +6,17 @@ using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {
-    public class CsvConfigurationParser : ConfigurationParser
+    public class CsvConfigurationParser : ConfigurationParserBase
     {
-        public CsvConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader) : base(celestialBodyFactory, fileLoader)
+        public CsvConfigurationParser(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
         }
 
-        protected override Galaxy Load(string content)
+        public override Galaxy Parse(string content)
         {
             var galaxy = new Galaxy();
             var lines = content.Split(Environment.NewLine).Skip(1).ToArray();
