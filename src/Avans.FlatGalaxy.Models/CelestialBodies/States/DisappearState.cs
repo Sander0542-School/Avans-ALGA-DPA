@@ -4,6 +4,7 @@
     {
         public void Collide(CelestialBody self, CelestialBody other)
         {
+            self.TriggerStateEvent();
         }
     }
 }
