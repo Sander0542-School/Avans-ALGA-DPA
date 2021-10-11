@@ -43,5 +43,10 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 
             return dist <= radSum;
         }
+
+        public void Collide(CelestialBody other)
+        {
+            CollisionState.Collide(this, other);
+        }
     }
 }

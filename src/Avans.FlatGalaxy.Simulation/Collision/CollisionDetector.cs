@@ -28,8 +28,8 @@ namespace Avans.FlatGalaxy.Simulation.Collision
             if (!_collisions.Contains(pair))
             {
                 _collisions.Add(pair);
-                body1.CollisionState.Collide(body2);
-                body2.CollisionState.Collide(body1);
+                body1.Collide(body2);
+                body2.Collide(body1);
             }
         }
 
