@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
@@ -20,7 +19,7 @@ namespace Avans.FlatGalaxy.Simulation
         private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 500;
+        private int _speed = 50;
         private bool _running = false;
 
         private CancellationTokenSource _source;
@@ -76,6 +75,7 @@ namespace Avans.FlatGalaxy.Simulation
                     _collisionDetector.Detect(this);
                     
                     PathSteps = new ShortestPathFinder().Get(this);
+                    // PathSteps = new CheapestPathFinder().Get(this);
 
                     _lastTick = DateTime.UtcNow;
 
