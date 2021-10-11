@@ -31,7 +31,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
         {
             if (!SupportedSchemas.Contains(source.Scheme))
             {
-                throw new NotImplementedException($"There is not file loader for the source type {source.Scheme}");
+                throw new NotImplementedException($"There is no file loader for the source type {source.Scheme}");
             }
 
             return _fileLoadersDict[source.Scheme].GetContent(source);
