@@ -11,7 +11,7 @@ namespace Avans.FlatGalaxy.Simulation.Bookmark
         
         public override IMemento<Galaxy> Save()
         {
-            throw new System.NotImplementedException();
+            return new GalaxyMemento(State);
         }
     }
 }

@@ -2,20 +2,18 @@
 {
     public abstract class Originator<T>
     {
-        private T _state;
-
         public Originator(T state)
         {
-            _state = state;
+            State = state;
         }
 
-        public T State => _state;
+        public T State { get; private set; }
 
         public abstract IMemento<T> Save();
 
         public void Restore(IMemento<T> memento)
         {
-            _state = memento.GetState();
+            State = memento.GetState();
         }
     }
 }
