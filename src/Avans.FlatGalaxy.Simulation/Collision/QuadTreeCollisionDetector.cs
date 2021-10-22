@@ -5,7 +5,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
 {
     public class QuadTreeCollisionDetector : ICollisionDetector
     {
-        public void Collide(ISimulator simulator, CollisionHandler handler)
+        public void Detect(ISimulator simulator, CollisionHandler handler)
         {
             var quadTree = new QuadTree(new Bounds(0, 0, ISimulator.Height, ISimulator.Width));
 

@@ -4,7 +4,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
 {
     public class NaiveCollisionDetector : ICollisionDetector
     {
-        public void Collide(ISimulator simulator, CollisionHandler handler)
+        public void Detect(ISimulator simulator, CollisionHandler handler)
         {
             var celestialBodies = simulator.Galaxy.CelestialBodies.ToList();
             

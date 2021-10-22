@@ -30,7 +30,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
 
         public void Detect(ISimulator simulator)
         {
-            _detectors[_currentDetector].Collide(simulator, this);
+            _detectors[_currentDetector].Detect(simulator, this);
 
             TriggerEnd();
         }

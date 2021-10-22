@@ -2,6 +2,6 @@
 {
     public interface ICollisionDetector
     {
-        void Collide(ISimulator simulator, CollisionHandler handler);
+        void Detect(ISimulator simulator, CollisionHandler handler);
     }
 }
