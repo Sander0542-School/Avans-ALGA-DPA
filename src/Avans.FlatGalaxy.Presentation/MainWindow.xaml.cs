@@ -35,14 +35,16 @@ namespace Avans.FlatGalaxy.Presentation
 
                     _simulationWindow.Show(galaxy);
                     Close();
-                    return;
+                }
+                else
+                {
+                    MessageBox.Show(this, "Not file selected, please select a file.", "Could not load file!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
-            catch
+            catch (Exception exception)
             {
-                // ignored
+                MessageBox.Show(this, exception.Message, "Could not load file!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            MessageBox.Show(this, "Could not load the file");
         }
     }
 }

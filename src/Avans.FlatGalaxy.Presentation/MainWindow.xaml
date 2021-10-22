@@ -5,9 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="500"
+        ResizeMode="CanMinimize">
     <Grid>
-        <TextBox x:Name="FileInput" Text="https://firebasestorage.googleapis.com/v0/b/dpa-files.appspot.com/o/planetsExtended.xml?alt=media"></TextBox>
-        <Button Click="SubmitFile"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Text="Flat Galaxy" FontSize="36" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="FileInput" Text="https://firebasestorage.googleapis.com/v0/b/dpa-files.appspot.com/o/planetsExtended.xml?alt=media"></TextBox>
+        <Button Grid.Column="1" Grid.Row="2" Content="Start Simulation" Click="SubmitFile" Height="36"></Button>
     </Grid>
 </Window>
