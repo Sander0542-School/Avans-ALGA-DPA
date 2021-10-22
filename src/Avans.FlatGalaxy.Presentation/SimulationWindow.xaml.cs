@@ -13,11 +13,10 @@ namespace Avans.FlatGalaxy.Presentation
 {
     public partial class SimulationWindow : Window
     {
-        private readonly ISimulator _simulator;
+        private ISimulator? _simulator;
 
-        public SimulationWindow(ISimulator simulator)
+        public SimulationWindow()
         {
-            _simulator = simulator;
             InitializeComponent();
 
             GalaxyCanvas.Width = ISimulator.Width;
@@ -41,15 +40,15 @@ namespace Avans.FlatGalaxy.Presentation
         {
             GalaxyCanvas.Children.Clear();
 
-            if (_simulator.Galaxy != null) { Draw(_simulator.Galaxy); }
-            if (_simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
+            if (_simulator?.Galaxy != null) { Draw(_simulator.Galaxy); }
+            if (_simulator?.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
         public void Show(Galaxy galaxy)
         {
             Show();
 
-            _simulator.Galaxy = galaxy;
+            _simulator = new Simulator(galaxy);
             _simulator.Resume();
         }
 

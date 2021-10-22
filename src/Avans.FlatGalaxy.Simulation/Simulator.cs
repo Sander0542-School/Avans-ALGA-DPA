@@ -23,20 +23,13 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
 
-        public Simulator()
+        public Simulator(Galaxy galaxy)
         {
+            _galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
         }
 
-        public Galaxy Galaxy
-        {
-            get => _galaxy;
-            set
-            {
-                Pause();
-                _galaxy = value;
-            }
-        }
+        public Galaxy Galaxy => _galaxy;
 
         public QuadTree QuadTree { get; set; }
 

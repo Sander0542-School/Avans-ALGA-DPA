@@ -9,7 +9,7 @@ namespace Avans.FlatGalaxy.Simulation
 
         public const int Height = 600;
 
-        Galaxy Galaxy { get; set; }
+        Galaxy Galaxy { get; }
 
         QuadTree QuadTree { get; set; }
 
