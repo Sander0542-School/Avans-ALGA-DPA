@@ -9,5 +9,14 @@
         SizeToContent="WidthAndHeight"
         ResizeMode="CanMinimize"
         Background="DimGray">
-    <Canvas x:Name="GalaxyCanvas" Height="600" Width="800" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Canvas x:Name="GalaxyCanvas" Height="600" Width="800" />
+        <StackPanel x:Name="Sidebar" Background="White" Grid.Column="1" Orientation="Vertical" Width="250">
+            
+        </StackPanel>
+    </Grid>
 </Window>
