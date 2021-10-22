@@ -3,9 +3,9 @@ using Avans.FlatGalaxy.Simulation.Extensions;
 
 namespace Avans.FlatGalaxy.Simulation.Collision
 {
-    public class QuadTreeCollisionDetector : CollisionDetector
+    public class QuadTreeCollisionDetector : ICollisionDetector
     {
-        protected override void Collide(ISimulator simulator)
+        public void Collide(ISimulator simulator, CollisionHandler handler)
         {
             var quadTree = new QuadTree(new Bounds(0, 0, ISimulator.Height, ISimulator.Width));
 
@@ -14,7 +14,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
                 quadTree.Insert(celestialBody);
             }
 
-            quadTree.Collisions(this);
+            quadTree.Collisions(handler);
 
             simulator.QuadTree = quadTree;
         }

@@ -5,7 +5,7 @@ namespace Avans.FlatGalaxy.Simulation.Extensions
 {
     public static class QuadTreeExtensions
     {
-        public static void Collisions(this QuadTree quadTree, CollisionDetector collisionDetector)
+        public static void Collisions(this QuadTree quadTree, CollisionHandler collisionHandler)
         {
             if (quadTree.Elements != null)
             {
@@ -14,16 +14,16 @@ namespace Avans.FlatGalaxy.Simulation.Extensions
                     foreach (var element2 in quadTree.Elements)
                     {
                         if (element1 != element2 && element1.IsColliding(element2))
-                            collisionDetector.AddCollision(element1, element2);
+                            collisionHandler.AddCollision(element1, element2);
                     }
                 }
             }
             else
             {
-                quadTree.NorthEast.Collisions(collisionDetector);
-                quadTree.NorthWest.Collisions(collisionDetector);
-                quadTree.SouthEast.Collisions(collisionDetector);
-                quadTree.SouthWest.Collisions(collisionDetector);
+                quadTree.NorthEast.Collisions(collisionHandler);
+                quadTree.NorthWest.Collisions(collisionHandler);
+                quadTree.SouthEast.Collisions(collisionHandler);
+                quadTree.SouthWest.Collisions(collisionHandler);
             }
         }
     }
