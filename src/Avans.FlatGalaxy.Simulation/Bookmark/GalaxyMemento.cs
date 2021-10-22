@@ -2,10 +2,11 @@
 using System.Linq;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 
 namespace Avans.FlatGalaxy.Simulation.Bookmark
 {
-    public class GalaxyMemento
+    public class GalaxyMemento : IMemento<Galaxy>
     {
         private readonly IList<CelestialBody> _celestialBodies;
 

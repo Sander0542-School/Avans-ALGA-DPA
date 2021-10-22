@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Simulation.Bookmark;
+using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 
@@ -24,15 +25,15 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
-        private readonly Originator _originator;
-        private readonly Caretaker _caretaker;
+        private readonly GalaxyOriginator _originator;
+        private readonly Caretaker<Galaxy> _caretaker;
 
         public Simulator(Galaxy galaxy)
         {
             _galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
-            _originator = new Originator(_galaxy);
-            _caretaker = new Caretaker(_originator);
+            _originator = new GalaxyOriginator(_galaxy);
+            _caretaker = new Caretaker<Galaxy>(_originator);
         }
 
         public Galaxy Galaxy => _galaxy;

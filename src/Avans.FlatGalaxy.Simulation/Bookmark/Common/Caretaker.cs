@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Avans.FlatGalaxy.Simulation.Bookmark
+namespace Avans.FlatGalaxy.Simulation.Bookmark.Common
 {
-    public class Caretaker
+    public class Caretaker<T>
     {
-        private readonly Stack<GalaxyMemento> _mementos;
-        private readonly Originator _originator;
+        private readonly Stack<IMemento<T>> _mementos;
+        private readonly Originator<T> _originator;
 
-        public Caretaker(Originator originator)
+        public Caretaker(Originator<T> originator)
         {
             _originator = originator;
-            _mementos = new Stack<GalaxyMemento>();
+            _mementos = new Stack<IMemento<T>>();
         }
 
         public void Backup()
