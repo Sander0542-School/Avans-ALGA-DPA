@@ -17,6 +17,14 @@ namespace Avans.FlatGalaxy.Models
             _celestialBodies = new Dictionary<CelestialBody, IDisposable>();
         }
 
+        public Galaxy(IEnumerable<CelestialBody> celestialBodies) : this()
+        {
+            foreach (var body in celestialBodies)
+            {
+                Add(body);
+            }
+        }
+
         public void Add(CelestialBody celestialBody)
         {
             _celestialBodies.Add(celestialBody, celestialBody.Subscribe(this));
