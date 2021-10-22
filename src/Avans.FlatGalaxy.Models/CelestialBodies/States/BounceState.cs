@@ -11,7 +11,7 @@
 
             if (++_collisions == 5)
             {
-                self.CollisionState = new BlinkState();
+                self.TriggerStateEvent();
             }
         }
     }
