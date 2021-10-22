@@ -1,7 +1,14 @@
-﻿namespace Avans.FlatGalaxy.Models
+﻿using System;
+
+namespace Avans.FlatGalaxy.Models
 {
-    public interface ICloneable<T>
+    public interface ICloneable<T> : ICloneable
     {
-        T Clone();
+        new T Clone();
+
+        object ICloneable.Clone()
+        {
+            return Clone();
+        }
     }
 }
