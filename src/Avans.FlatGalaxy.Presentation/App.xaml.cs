@@ -36,7 +36,7 @@ namespace Avans.FlatGalaxy.Presentation
 
             services.AddTransient<ICelestialBodyFactory, CelestialBodyFactory>();
             services.AddTransient<IFileLoader, FileLoader>();
-            services.AddTransient<ConfigurationParser, XmlConfigurationParser>();
+            services.AddTransient<ConfigurationParserBase, ConfigurationParser>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)

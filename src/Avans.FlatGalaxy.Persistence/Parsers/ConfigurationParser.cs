@@ -2,39 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using Avans.FlatGalaxy.Models;
-using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {
-    public abstract class ConfigurationParser
+    public class ConfigurationParser : ConfigurationParserBase
     {
-        protected readonly ICelestialBodyFactory CelestialBodyFactory;
-        private readonly IFileLoader _fileLoader;
+        private readonly IList<ConfigurationParserBase> _configurationParsers;
 
-        protected ConfigurationParser(ICelestialBodyFactory celestialBodyFactory, IFileLoader fileLoader)
+        public ConfigurationParser(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
-            CelestialBodyFactory = celestialBodyFactory;
-            _fileLoader = fileLoader;
-        }
-
-        public Galaxy Load(Uri source)
-        {
-            return Load(_fileLoader.GetContent(source));
-        }
-
-        protected abstract Galaxy Load(string body);
-        
-        protected static void MapNeighbours(Galaxy galaxy, Dictionary<Planet, string[]> planetNeighbours)
-        {
-            foreach (var (planet, neighbours) in planetNeighbours)
+            _configurationParsers = new List<ConfigurationParserBase>
             {
-                foreach (var neighbour in neighbours)
+                new XmlConfigurationParser(celestialBodyFactory),
+                new CsvConfigurationParser(celestialBodyFactory),
+            };
+        }
+
+        public override bool CanParse(string content)
+        {
+            return _configurationParsers.Any(configurationParser => configurationParser.CanParse(content));
+        }
+
+        public override Galaxy Parse(string content)
+        {
+            foreach (var configurationParser in _configurationParsers)
+            {
+                if (configurationParser.CanParse(content))
                 {
-                    planet.Neighbours.Add(galaxy.CelestialBodies.OfType<Planet>().First(b => b.Name == neighbour));
+                    return configurationParser.Parse(content);
                 }
             }
+            throw new NotImplementedException("There is no parser for this file");
         }
     }
 }

@@ -14,12 +14,19 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
         {
             var path = source.AbsolutePath;
 
-            if (!System.IO.File.Exists(path))
+            if (!File.Exists(path))
             {
-                throw new FileNotFoundException("The configuration file does not exist", path);
+                throw new FileNotFoundException("The file does not exist.", path);
             }
 
-            return System.IO.File.ReadAllText(path);
+            try
+            {
+                return File.ReadAllText(path);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("The file could not be loaded.", e);
+            }
         }
     }
 }
