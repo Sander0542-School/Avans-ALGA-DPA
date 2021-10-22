@@ -27,7 +27,11 @@ namespace Avans.FlatGalaxy.Models
 
         public void Add(CelestialBody celestialBody)
         {
-            _celestialBodies.Add(celestialBody, celestialBody.Subscribe(this));
+            if (_celestialBodies.ContainsKey(celestialBody))
+            {
+                _celestialBodies[celestialBody]?.Dispose();
+            }
+            _celestialBodies[celestialBody] = celestialBody.Subscribe(this);
         }
 
         public void Remove(CelestialBody celestialBody)
