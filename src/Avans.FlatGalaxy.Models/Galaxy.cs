@@ -44,11 +44,17 @@ namespace Avans.FlatGalaxy.Models
         {
             switch (celestialBody.CollisionState.GetType().Name)
             {
+                case "BounceState":
+                    celestialBody.CollisionState = new BlinkState();
+                    break;
                 case "DisappearState":
                     Remove(celestialBody);
                     break;
                 case "ExplodeState":
                     ExplodeStateEvent(celestialBody);
+                    break;
+                case "GrowState":
+                    celestialBody.CollisionState = new ExplodeState();
                     break;
             }
         }

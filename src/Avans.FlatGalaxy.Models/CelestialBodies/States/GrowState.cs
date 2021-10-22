@@ -6,7 +6,7 @@
         {
             if (self.Radius++ >= 20)
             {
-                self.CollisionState = new ExplodeState();
+                self.TriggerStateEvent();
             }
         }
     }
