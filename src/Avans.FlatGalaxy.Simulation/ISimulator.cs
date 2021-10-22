@@ -16,5 +16,7 @@ namespace Avans.FlatGalaxy.Simulation
         void Resume();
 
         void Pause();
+
+        void Restore();
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Simulation.Bookmark;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 
@@ -18,15 +19,20 @@ namespace Avans.FlatGalaxy.Simulation
 
         private int _speed = 50;
         private bool _running = false;
+        private DateTime _lastBookmark;
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
+        private readonly Originator _originator;
+        private readonly Caretaker _caretaker;
 
         public Simulator(Galaxy galaxy)
         {
             _galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
+            _originator = new Originator(_galaxy);
+            _caretaker = new Caretaker(_originator);
         }
 
         public Galaxy Galaxy => _galaxy;
@@ -41,6 +47,7 @@ namespace Avans.FlatGalaxy.Simulation
             _source = new CancellationTokenSource();
             _token = _source.Token;
             _lastTick = DateTime.UtcNow;
+            _lastBookmark = DateTime.UtcNow;
             Tick(_token);
         }
 
@@ -48,6 +55,12 @@ namespace Avans.FlatGalaxy.Simulation
         {
             _source?.Cancel();
             _running = false;
+        }
+
+        public void Restore()
+        {
+            _caretaker.Undo();
+            _galaxy = _originator.State;
         }
 
         public void Tick(CancellationToken token)
@@ -64,6 +77,11 @@ namespace Avans.FlatGalaxy.Simulation
                     _collisionHandler.Detect(this);
 
                     _lastTick = DateTime.UtcNow;
+                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= 1)
+                    {
+                        _caretaker.Backup();
+                        _lastBookmark = DateTime.UtcNow;
+                    }
 
                     var nextTick = (int)(TpsTime - tickTime);
                     await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
