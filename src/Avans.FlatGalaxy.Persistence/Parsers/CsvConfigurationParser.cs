@@ -16,7 +16,10 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
 
         public override bool CanParse(string content)
         {
-            return content.Split(Environment.NewLine).Skip(1).All(line => line.Split(',').Length == 10);
+            var lines = content.Split(Environment.NewLine);
+            var columns = lines[0].Split(',').Length;
+
+            return lines.All(line => line.Split(',').Length == columns);
         }
 
         public override Galaxy Parse(string content)
