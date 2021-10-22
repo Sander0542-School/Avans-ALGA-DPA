@@ -5,8 +5,6 @@ using System.Linq;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {
@@ -14,6 +12,11 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
     {
         public CsvConfigurationParser(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
+        }
+
+        public override bool CanParse(string content)
+        {
+            return content.Split(Environment.NewLine).Skip(1).All(line => line.Split(',').Length == 10);
         }
 
         public override Galaxy Parse(string content)

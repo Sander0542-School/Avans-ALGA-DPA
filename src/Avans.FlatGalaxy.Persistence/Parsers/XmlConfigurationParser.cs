@@ -4,7 +4,6 @@ using System.Xml;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {

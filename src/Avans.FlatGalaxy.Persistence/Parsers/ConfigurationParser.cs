@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
-using Avans.FlatGalaxy.Persistence.Loaders;
 
 namespace Avans.FlatGalaxy.Persistence.Parsers
 {
@@ -34,7 +33,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                     return configurationParser.Parse(content);
                 }
             }
-            throw new NotImplementedException($"There is no parser for this type");
+            throw new NotImplementedException("There is no parser for this file");
         }
     }
 }
