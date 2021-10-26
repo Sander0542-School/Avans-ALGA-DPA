@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
+using Avans.FlatGalaxy.Models.Common;
 
 namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
-    public abstract class CelestialBody
+    public abstract class CelestialBody : IObservable<CelestialBody>
     {
+        private readonly IList<IObserver<CelestialBody>> _observers;
+
         public double X { get; set; }
 
         public double Y { get; set; }
@@ -25,7 +30,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         public double CenterX => X + Radius;
         public double CenterY => Y + Radius;
 
-        public CelestialBody(double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState)
+        public CelestialBody(double x, double y, double vx, double vy, int radius, Color color, ICollisionState collisionState = null)
         {
             X = x;
             Y = y;
@@ -33,7 +38,9 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             VY = vy;
             Radius = radius;
             Color = color;
-            CollisionState = collisionState;
+            CollisionState = collisionState ?? new NullCollisionState();
+
+            _observers = new List<IObserver<CelestialBody>>();
         }
 
         public bool IsColliding(CelestialBody other)
@@ -42,6 +49,26 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             var radSum = Math.Pow(Radius + other.Radius, 2);
 
             return dist <= radSum;
+        }
+
+        public void Collide(CelestialBody other)
+        {
+            CollisionState.Collide(this, other);
+        }
+
+        public IDisposable Subscribe(IObserver<CelestialBody> observer)
+        {
+            _observers.Add(observer);
+
+            return new Unsubscriber<CelestialBody>(_observers, observer);
+        }
+
+        public void TriggerStateEvent()
+        {
+            foreach (var observer in _observers.ToList())
+            {
+                observer.OnNext(this);
+            }
         }
     }
 }

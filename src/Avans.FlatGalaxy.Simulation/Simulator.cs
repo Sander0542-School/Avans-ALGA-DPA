@@ -24,11 +24,11 @@ namespace Avans.FlatGalaxy.Simulation
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
-        private CollisionDetector _collisionDetector;
+        private readonly CollisionHandler _collisionHandler;
 
         public Simulator()
         {
-            _collisionDetector = new QuadTreeCollisionDetector();
+            _collisionHandler = new CollisionHandler();
         }
 
         public Galaxy Galaxy
@@ -72,7 +72,7 @@ namespace Avans.FlatGalaxy.Simulation
 
                     Update(deltaTime);
 
-                    _collisionDetector.Detect(this);
+                    _collisionHandler.Detect(this);
                     
                     PathSteps = new BreadthFirstPathFinder().Get(this);
                     // PathSteps = new CheapestPathFinder().Get(this);

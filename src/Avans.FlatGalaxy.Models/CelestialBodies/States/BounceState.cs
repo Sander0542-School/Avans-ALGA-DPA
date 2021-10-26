@@ -2,8 +2,17 @@
 {
     public class BounceState : ICollisionState
     {
-        public void Collide(CelestialBody celestialBody)
+        private int _collisions;
+        
+        public void Collide(CelestialBody self, CelestialBody other)
         {
+            self.VX = -self.VX;
+            self.VY = -self.VY;
+
+            if (++_collisions == 5)
+            {
+                self.TriggerStateEvent();
+            }
         }
     }
 }
