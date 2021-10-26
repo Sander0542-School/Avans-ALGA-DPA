@@ -3,7 +3,7 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Simulation.PathFinding
 {
-    public class ShortestPathFinder : PathFinder
+    public class BreadthFirstPathFinder : PathFinder
     {
         public override List<Planet> Find(Planet start, Planet end)
         {

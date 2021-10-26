@@ -74,7 +74,7 @@ namespace Avans.FlatGalaxy.Simulation
 
                     _collisionDetector.Detect(this);
                     
-                    PathSteps = new ShortestPathFinder().Get(this);
+                    PathSteps = new BreadthFirstPathFinder().Get(this);
                     // PathSteps = new CheapestPathFinder().Get(this);
 
                     _lastTick = DateTime.UtcNow;
