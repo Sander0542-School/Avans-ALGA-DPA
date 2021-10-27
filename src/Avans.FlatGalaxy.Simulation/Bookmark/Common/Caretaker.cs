@@ -1,22 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Avans.FlatGalaxy.Models;
 
 namespace Avans.FlatGalaxy.Simulation.Bookmark.Common
 {
-    public class Caretaker<T>
+    public abstract class Caretaker<T> : ICaretaker
     {
         private readonly Stack<IMemento<T>> _mementos;
-        private readonly Originator<T> _originator;
 
-        public Caretaker(Originator<T> originator)
+        protected Caretaker()
         {
-            _originator = originator;
             _mementos = new Stack<IMemento<T>>();
         }
 
-        public void Backup()
+        protected abstract IMemento<T> Create();
+
+        protected abstract void Restore(T model);
+
+        public void Save()
         {
-            _mementos.Push(_originator.Save());
+            _mementos.Push(Create());
         }
 
         public void Undo()
@@ -24,8 +28,8 @@ namespace Avans.FlatGalaxy.Simulation.Bookmark.Common
             if (!_mementos.Any()) return;
 
             var memento = _mementos.Pop();
-            
-            _originator.Restore(memento);
+
+            Restore(memento.GetState());
         }
     }
 }

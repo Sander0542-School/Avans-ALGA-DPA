@@ -15,7 +15,6 @@ namespace Avans.FlatGalaxy.Simulation
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
 
-        private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
         private int _speed = 50;
@@ -25,18 +24,16 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
-        private readonly GalaxyOriginator _originator;
-        private readonly Caretaker<Galaxy> _caretaker;
+        private readonly ICaretaker _caretaker;
 
         public Simulator(Galaxy galaxy)
         {
-            _galaxy = galaxy;
+            Galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
-            _originator = new GalaxyOriginator(_galaxy);
-            _caretaker = new Caretaker<Galaxy>(_originator);
+            _caretaker = new SimulatorCaretaker(this);
         }
 
-        public Galaxy Galaxy => _galaxy;
+        public Galaxy Galaxy { get; set; }
 
         public QuadTree QuadTree { get; set; }
 
@@ -61,7 +58,6 @@ namespace Avans.FlatGalaxy.Simulation
         public void Restore()
         {
             _caretaker.Undo();
-            _galaxy = _originator.State;
         }
 
         public void Tick(CancellationToken token)
@@ -80,7 +76,7 @@ namespace Avans.FlatGalaxy.Simulation
                     _lastTick = DateTime.UtcNow;
                     if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= 1)
                     {
-                        _caretaker.Backup();
+                        _caretaker.Save();
                         _lastBookmark = DateTime.UtcNow;
                     }
 
