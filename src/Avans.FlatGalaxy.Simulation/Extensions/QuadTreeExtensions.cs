@@ -20,10 +20,10 @@ namespace Avans.FlatGalaxy.Simulation.Extensions
             }
             else
             {
-                quadTree.NorthEast.Collisions(collisionHandler);
-                quadTree.NorthWest.Collisions(collisionHandler);
-                quadTree.SouthEast.Collisions(collisionHandler);
-                quadTree.SouthWest.Collisions(collisionHandler);
+                quadTree.TopRight.Collisions(collisionHandler);
+                quadTree.TopLeft.Collisions(collisionHandler);
+                quadTree.BottomRight.Collisions(collisionHandler);
+                quadTree.BottomLeft.Collisions(collisionHandler);
             }
         }
     }

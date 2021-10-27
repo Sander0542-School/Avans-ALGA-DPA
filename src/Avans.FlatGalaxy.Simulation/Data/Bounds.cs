@@ -2,37 +2,37 @@
 {
     public class Bounds
     {
-        public Bounds(double north, double east, double south, double west)
+        public Bounds(double top, double right, double bottom, double left)
         {
-            North = north;
-            East = east;
-            South = south;
-            West = west;
+            Top = top;
+            Right = right;
+            Bottom = bottom;
+            Left = left;
         }
 
-        public double North { get; }
+        public double Top { get; }
 
-        public double East { get; }
+        public double Right { get; }
 
-        public double South { get; }
+        public double Bottom { get; }
 
-        public double West { get; }
+        public double Left { get; }
 
-        public double Height => South - North;
+        public double Height => Bottom - Top;
 
-        public double Width => West - East;
+        public double Width => Right - Left;
 
         public bool Inside(double x1, double y1, double x2, double y2)
         {
-            return x2 >= East && x1 <= West && y2 >= North && y1 <= South;
+            return x1 <= Right && x2 >= Left && y1 <= Bottom && y2 >= Top;
         }
 
-        public Bounds NorthEast => new(North, East, North + Height / 2, East + Width / 2);
+        public Bounds TopRight => new(Top, Right, Top + Height / 2, Right - Width / 2);
 
-        public Bounds NorthWest => new(North, East + Width / 2, North + Height / 2, West);
+        public Bounds TopLeft => new(Top, Left + Width / 2, Top + Height / 2, Left);
 
-        public Bounds SouthEast => new(North + Height / 2, East, South, East + Width / 2);
+        public Bounds BottomRight => new(Bottom - Height / 2, Right, Bottom, Right - Width / 2);
 
-        public Bounds SouthWest => new(North + Height / 2, East + Width / 2, South, West);
+        public Bounds BottomLeft => new(Bottom - Height / 2, Left + Width / 2, Bottom, Left);
     }
 }
