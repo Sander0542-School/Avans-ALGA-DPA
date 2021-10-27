@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders
 {
-    class FileSystemFileLoader : IFileLoader
+    public class FileSystemFileLoader : IFileLoader
     {
         public string[] SupportedSchemas => new[]
         {
@@ -16,7 +16,12 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
 
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("The file does not exist.", path);
+                var localPath = Path.Combine(Environment.CurrentDirectory, source.Host);
+                if (File.Exists(localPath))
+                {
+                    path = localPath;
+                }
+                else throw new FileNotFoundException("The file does not exist.", path);
             }
 
             try
