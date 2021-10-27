@@ -7,7 +7,7 @@ using Avans.FlatGalaxy.Models.Common;
 
 namespace Avans.FlatGalaxy.Models.CelestialBodies
 {
-    public abstract class CelestialBody : IObservable<CelestialBody>
+    public abstract class CelestialBody : IObservable<CelestialBody>, ICloneable<CelestialBody>
     {
         private readonly IList<IObserver<CelestialBody>> _observers;
 
@@ -70,5 +70,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
                 observer.OnNext(this);
             }
         }
+
+        public abstract CelestialBody Clone();
     }
 }

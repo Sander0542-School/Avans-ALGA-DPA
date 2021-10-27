@@ -15,13 +15,13 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         public IList<CelestialBody> Elements { get; private set; }
 
-        public QuadTree NorthEast { get; private set; }
+        public QuadTree TopRight { get; private set; }
 
-        public QuadTree NorthWest { get; private set; }
+        public QuadTree TopLeft { get; private set; }
 
-        public QuadTree SouthEast { get; private set; }
+        public QuadTree BottomRight { get; private set; }
 
-        public QuadTree SouthWest { get; private set; }
+        public QuadTree BottomLeft { get; private set; }
 
         public QuadTree(Bounds bounds, int depth = 1)
         {
@@ -41,6 +41,7 @@ namespace Avans.FlatGalaxy.Simulation.Data
                 else
                 {
                     Subdivide();
+                    InsertSub(element);
                 }
             }
             else
@@ -51,10 +52,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         public void Subdivide()
         {
-            NorthEast = new QuadTree(Bounds.NorthEast, _depth + 1);
-            NorthWest = new QuadTree(Bounds.NorthWest, _depth + 1);
-            SouthEast = new QuadTree(Bounds.SouthEast, _depth + 1);
-            SouthWest = new QuadTree(Bounds.SouthWest, _depth + 1);
+            TopRight = new QuadTree(Bounds.TopRight, _depth + 1);
+            TopLeft = new QuadTree(Bounds.TopLeft, _depth + 1);
+            BottomRight = new QuadTree(Bounds.BottomRight, _depth + 1);
+            BottomLeft = new QuadTree(Bounds.BottomLeft, _depth + 1);
 
             foreach (var element in Elements)
             {
@@ -66,10 +67,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         private void InsertSub(CelestialBody element)
         {
-            if (NorthEast.Bounds.Inside(element)) NorthEast.Insert(element);
-            if (NorthWest.Bounds.Inside(element)) NorthWest.Insert(element);
-            if (SouthEast.Bounds.Inside(element)) SouthEast.Insert(element);
-            if (SouthWest.Bounds.Inside(element)) SouthWest.Insert(element);
+            if (TopRight.Bounds.Inside(element)) TopRight.Insert(element);
+            if (TopLeft.Bounds.Inside(element)) TopLeft.Insert(element);
+            if (BottomRight.Bounds.Inside(element)) BottomRight.Insert(element);
+            if (BottomLeft.Bounds.Inside(element)) BottomLeft.Insert(element);
         }
     }
 }

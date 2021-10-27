@@ -2,6 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Simulation.Bookmark;
+using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 
@@ -13,30 +15,25 @@ namespace Avans.FlatGalaxy.Simulation
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
 
-        private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
         private int _speed = 50;
         private bool _running = false;
+        private DateTime _lastBookmark;
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
+        private readonly ICaretaker _caretaker;
 
-        public Simulator()
+        public Simulator(Galaxy galaxy)
         {
+            Galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
+            _caretaker = new SimulatorCaretaker(this);
         }
 
-        public Galaxy Galaxy
-        {
-            get => _galaxy;
-            set
-            {
-                Pause();
-                _galaxy = value;
-            }
-        }
+        public Galaxy Galaxy { get; set; }
 
         public QuadTree QuadTree { get; set; }
 
@@ -48,6 +45,7 @@ namespace Avans.FlatGalaxy.Simulation
             _source = new CancellationTokenSource();
             _token = _source.Token;
             _lastTick = DateTime.UtcNow;
+            _lastBookmark = DateTime.UtcNow;
             Tick(_token);
         }
 
@@ -55,6 +53,11 @@ namespace Avans.FlatGalaxy.Simulation
         {
             _source?.Cancel();
             _running = false;
+        }
+
+        public void Restore()
+        {
+            _caretaker.Undo();
         }
 
         public void Tick(CancellationToken token)
@@ -71,6 +74,11 @@ namespace Avans.FlatGalaxy.Simulation
                     _collisionHandler.Detect(this);
 
                     _lastTick = DateTime.UtcNow;
+                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= 1)
+                    {
+                        _caretaker.Save();
+                        _lastBookmark = DateTime.UtcNow;
+                    }
 
                     var nextTick = (int)(TpsTime - tickTime);
                     await Task.Delay(nextTick >= 0 ? nextTick : 0, token);

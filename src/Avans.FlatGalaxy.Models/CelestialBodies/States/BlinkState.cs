@@ -21,5 +21,10 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies.States
                 });
             }
         }
+        
+        public ICollisionState Clone()
+        {
+            return new BlinkState();
+        }
     }
 }

@@ -9,5 +9,10 @@
                 self.TriggerStateEvent();
             }
         }
+        
+        public ICollisionState Clone()
+        {
+            return new GrowState();
+        }
     }
 }
