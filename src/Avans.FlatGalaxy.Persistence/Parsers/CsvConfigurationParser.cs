@@ -10,6 +10,8 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
 {
     public class CsvConfigurationParser : ConfigurationParserBase
     {
+        private const char Separator = ';';
+
         public CsvConfigurationParser(ICelestialBodyFactory celestialBodyFactory) : base(celestialBodyFactory)
         {
         }
@@ -17,9 +19,9 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
         public override bool CanParse(string content)
         {
             var lines = content.Split(Environment.NewLine);
-            var columns = lines[0].Split(',').Length;
+            var columns = lines[0].Split(Separator).Length;
 
-            return lines.All(line => line.Split(',').Length == columns);
+            return lines.All(line => string.IsNullOrWhiteSpace(line) || line.Split(Separator).Length == columns);
         }
 
         public override Galaxy Parse(string content)
@@ -33,7 +35,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
             {
                 if (line != "")
                 {
-                    var attributes = line.Split(';');
+                    var attributes = line.Split(Separator);
 
                     var name = attributes[0];
                     var type = attributes[1];
