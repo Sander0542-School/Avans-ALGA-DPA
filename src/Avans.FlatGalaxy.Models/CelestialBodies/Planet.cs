@@ -14,5 +14,10 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         {
             Name = name;
         }
+
+        public override CelestialBody Clone()
+        {
+            return new Planet(Name, X, Y, VX, VY, Radius, Color, CollisionState.Clone());
+        }
     }
 }
