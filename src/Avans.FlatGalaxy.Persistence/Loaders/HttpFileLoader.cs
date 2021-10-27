@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace Avans.FlatGalaxy.Persistence.Loaders
 {
-    class HttpFileLoader : IFileLoader
+    public class HttpFileLoader : IFileLoader
     {
         public string[] SupportedSchemas => new[]
         {
