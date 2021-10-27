@@ -6,5 +6,10 @@
         {
             // do nothing
         }
+        
+        public ICollisionState Clone()
+        {
+            return new NullCollisionState();
+        }
     }
 }
