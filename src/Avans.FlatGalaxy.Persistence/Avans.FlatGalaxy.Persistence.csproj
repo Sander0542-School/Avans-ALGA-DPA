@@ -8,4 +8,15 @@
       <ProjectReference Include="..\Avans.FlatGalaxy.Models\Avans.FlatGalaxy.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="planetsExtended.csv" />
+      <Content Include="planetsExtended.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="planetsExtended.xml" />
+      <Content Include="planetsExtended.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
