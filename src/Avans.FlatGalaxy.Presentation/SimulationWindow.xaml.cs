@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,7 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
 using Avans.FlatGalaxy.Simulation.Data;
+using Color=System.Drawing.Color;
 
 namespace Avans.FlatGalaxy.Presentation
 {
@@ -41,8 +43,8 @@ namespace Avans.FlatGalaxy.Presentation
         {
             GalaxyCanvas.Children.Clear();
 
-            if (_simulator.Galaxy != null) { Draw(_simulator); }
-            if (_simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
+            if (_simulator?.Galaxy != null) { Draw(_simulator.Galaxy, _simulator.PathSteps); }
+            if (_simulator?.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
         public void Show(Galaxy galaxy)
@@ -53,17 +55,19 @@ namespace Avans.FlatGalaxy.Presentation
             _simulator.Resume();
         }
 
-        private void Draw(ISimulator simulator)
+        private void Draw(Galaxy galaxy, ICollection<Planet> pathSteps)
         {
+            var pathColor = Colors.Chartreuse;
+
             GalaxyCanvas.Children.Clear();
 
-            foreach (var celestialBody in simulator.Galaxy.CelestialBodies)
+            foreach (var celestialBody in galaxy.CelestialBodies)
             {
                 var ellipse = new Ellipse
                 {
                     Height = celestialBody.Diameter,
                     Width = celestialBody.Diameter,
-                    Fill = new SolidColorBrush(simulator.PathSteps?.Contains(celestialBody) ?? false ? Colors.Chartreuse : celestialBody.Color.ToColor()),
+                    Fill = new SolidColorBrush(pathSteps?.Contains(celestialBody) ?? false ? pathColor : celestialBody.Color.ToColor()),
                 };
 
                 GalaxyCanvas.Children.Add(ellipse);
@@ -75,15 +79,11 @@ namespace Avans.FlatGalaxy.Presentation
                 {
                     foreach (var neighbour in planet.Neighbours)
                     {
-                        var isStepLine = false;
-                        if (simulator.PathSteps != null)
-                        {
-                            isStepLine = simulator.PathSteps.Contains(planet) && simulator.PathSteps.Contains(neighbour);
-                        }
-                        
+                        var isStepLine = pathSteps != null && pathSteps.Contains(planet) && pathSteps.Contains(neighbour);
+
                         GalaxyCanvas.Children.Add(new Line
                         {
-                            Stroke = new SolidColorBrush(isStepLine ? Colors.Chartreuse : Colors.Blue) ,
+                            Stroke = new SolidColorBrush(isStepLine ? pathColor : Colors.Blue),
                             X1 = celestialBody.CenterX,
                             Y1 = celestialBody.CenterY,
                             X2 = neighbour.CenterX,
