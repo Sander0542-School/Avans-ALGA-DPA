@@ -14,11 +14,10 @@ namespace Avans.FlatGalaxy.Presentation
 {
     public partial class SimulationWindow : Window
     {
-        private readonly ISimulator _simulator;
+        private ISimulator? _simulator;
 
-        public SimulationWindow(ISimulator simulator)
+        public SimulationWindow()
         {
-            _simulator = simulator;
             InitializeComponent();
 
             GalaxyCanvas.Width = ISimulator.Width;
@@ -50,7 +49,7 @@ namespace Avans.FlatGalaxy.Presentation
         {
             Show();
 
-            _simulator.Galaxy = galaxy;
+            _simulator = new Simulator(galaxy);
             _simulator.Resume();
         }
 
@@ -100,23 +99,23 @@ namespace Avans.FlatGalaxy.Presentation
         {
             Draw(tree.Bounds);
 
-            if (tree.NorthEast != null) Draw(tree.NorthEast);
-            if (tree.NorthWest != null) Draw(tree.NorthWest);
-            if (tree.SouthEast != null) Draw(tree.SouthEast);
-            if (tree.SouthWest != null) Draw(tree.SouthWest);
+            if (tree.TopRight != null) Draw(tree.TopRight);
+            if (tree.TopLeft != null) Draw(tree.TopLeft);
+            if (tree.BottomRight != null) Draw(tree.BottomRight);
+            if (tree.BottomLeft != null) Draw(tree.BottomLeft);
         }
 
         private void Draw(Bounds bounds)
         {
             var rect = new Rectangle
             {
-                Stroke = new SolidColorBrush(Colors.Red),
-                Fill = new SolidColorBrush(Colors.Transparent),
+                Stroke = Brushes.Red,
+                Fill = Brushes.Transparent,
                 Width = bounds.Width,
                 Height = bounds.Height,
             };
-            Canvas.SetTop(rect, bounds.North);
-            Canvas.SetLeft(rect, bounds.East);
+            Canvas.SetTop(rect, bounds.Top);
+            Canvas.SetLeft(rect, bounds.Left);
             GalaxyCanvas.Children.Add(rect);
         }
     }

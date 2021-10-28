@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
@@ -7,6 +9,10 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 using Avans.FlatGalaxy.Simulation.PathFinding;
+using Avans.FlatGalaxy.Models.CelestialBodies.States;
+using Avans.FlatGalaxy.Simulation.Bookmark;
+using Avans.FlatGalaxy.Simulation.Bookmark.Common;
+using Avans.FlatGalaxy.Simulation.Extensions;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -16,33 +22,31 @@ namespace Avans.FlatGalaxy.Simulation
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
 
-        private Galaxy _galaxy;
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 50;
+        private double _speed = 25;
         private bool _running = false;
+        private DateTime _lastBookmark;
 
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
+        private readonly ICaretaker _caretaker;
 
-        public Simulator()
+        public Simulator(Galaxy galaxy)
         {
+            Galaxy = galaxy;
             _collisionHandler = new CollisionHandler();
+            _caretaker = new SimulatorCaretaker(this);
         }
 
-        public Galaxy Galaxy
-        {
-            get => _galaxy;
-            set
-            {
-                Pause();
-                _galaxy = value;
-            }
-        }
+        public Galaxy Galaxy { get; set; }
 
         public QuadTree QuadTree { get; set; }
+
         public List<Planet> PathSteps { get; set; }
+
+        public bool CollisionVisible { get; set; } = false;
 
         public void Resume()
         {
@@ -52,6 +56,7 @@ namespace Avans.FlatGalaxy.Simulation
             _source = new CancellationTokenSource();
             _token = _source.Token;
             _lastTick = DateTime.UtcNow;
+            _lastBookmark = DateTime.UtcNow;
             Tick(_token);
         }
 
@@ -61,7 +66,50 @@ namespace Avans.FlatGalaxy.Simulation
             _running = false;
         }
 
-        public void Tick(CancellationToken token)
+        public void Restore()
+        {
+            _caretaker.Undo();
+        }
+
+        public void SpeedUp(double speed)
+        {
+            _speed += speed;
+        }
+
+        public void SpeedDown(double speed)
+        {
+            _speed -= speed;
+        }
+
+        public void SwitchCollisionAlgo()
+        {
+            _collisionHandler.Toggle();
+        }
+
+        public void ToggleCollisionVisibility()
+        {
+            CollisionVisible = !CollisionVisible;
+        }
+
+        public void AddAsteroid()
+        {
+            var rnd = new Random();
+            var x = rnd.NextDouble() * ISimulator.Width;
+            var y = rnd.NextDouble() * ISimulator.Height;
+            var vx = rnd.NextDouble() * 10 - 5;
+            var vy = rnd.NextDouble() * 10 - 5;
+            var radius = rnd.Next(2, 6);
+
+            Galaxy.Add(new Asteroid(x, y, vx, vy, radius, Color.Black, new NullCollisionState()));
+        }
+
+        public void RemoveAsteroid()
+        {
+            var asteroid = Galaxy.CelestialBodies.OfType<Asteroid>().Random();
+            Galaxy.Remove(asteroid);
+        }
+
+        private void Tick(CancellationToken token)
         {
             if (_running)
             {
@@ -78,6 +126,11 @@ namespace Avans.FlatGalaxy.Simulation
                     // PathSteps = new CheapestPathFinder().Get(this);
 
                     _lastTick = DateTime.UtcNow;
+                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
+                    {
+                        _caretaker.Save();
+                        _lastBookmark = DateTime.UtcNow;
+                    }
 
                     var nextTick = (int)(TpsTime - tickTime);
                     await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
