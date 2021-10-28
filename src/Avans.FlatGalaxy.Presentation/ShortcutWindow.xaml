@@ -1,0 +1,24 @@
+﻿<Window x:Class="Avans.FlatGalaxy.Presentation.ShortcutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
+        mc:Ignorable="d"
+        Title="ShortcutWindow" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" Loaded="ShortcutWindow_OnLoaded" ResizeMode="NoResize" KeyDown="ShortcutWindow_OnKeyDown" Closing="ShortcutWindow_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="listenForKeys" Foreground="Red" Visibility="Hidden" FontWeight="Bold">Listening for key input! Click `Escape` to cancel!</TextBlock>
+        </StackPanel>
+        
+        <ScrollViewer Grid.Row="1">
+            <StackPanel x:Name="StackPanel" Orientation="Vertical"></StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

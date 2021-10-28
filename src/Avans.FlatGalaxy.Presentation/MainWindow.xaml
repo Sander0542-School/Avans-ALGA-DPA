@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="500"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -18,9 +18,11 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Text="Flat Galaxy" FontSize="36" TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
         <TextBox Grid.Column="1" Grid.Row="1" x:Name="FileInput" Margin="0,8" Text="https://firebasestorage.googleapis.com/v0/b/dpa-files.appspot.com/o/planetsExtended.xml?alt=media"></TextBox>
         <Button Grid.Column="1" Grid.Row="2" Content="Start Simulation" Click="SubmitFile" Height="36"></Button>
+        <Button Grid.Column="1" Grid.Row="3" Content="Manage Shortcuts" Click="ManageShortcuts" Height="36"></Button>
     </Grid>
 </Window>

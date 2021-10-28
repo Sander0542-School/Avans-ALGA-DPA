@@ -11,12 +11,14 @@ namespace Avans.FlatGalaxy.Presentation
     public partial class MainWindow : Window
     {
         private readonly SimulationWindow _simulationWindow;
+        private readonly ShortcutWindow _shortcutWindow;
         private readonly IFileLoader _fileLoader;
         private readonly ConfigurationParserBase _configurationParser;
 
-        public MainWindow(SimulationWindow simulationWindow, IFileLoader fileLoader, ConfigurationParserBase configurationParser)
+        public MainWindow(SimulationWindow simulationWindow, ShortcutWindow shortcutWindow, IFileLoader fileLoader, ConfigurationParserBase configurationParser)
         {
             _simulationWindow = simulationWindow;
+            _shortcutWindow = shortcutWindow;
             _fileLoader = fileLoader;
             _configurationParser = configurationParser;
 
@@ -45,6 +47,11 @@ namespace Avans.FlatGalaxy.Presentation
             {
                 MessageBox.Show(this, exception.Message, "Could not load file!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+        }
+
+        private void ManageShortcuts(object sender, RoutedEventArgs e)
+        {
+            _shortcutWindow.ShowDialog();
         }
     }
 }

@@ -8,6 +8,6 @@
         Title="SimulationWindow" 
         SizeToContent="WidthAndHeight"
         ResizeMode="CanMinimize"
-        Background="DimGray">
+        Background="DimGray" WindowStartupLocation="CenterScreen">
     <Canvas x:Name="GalaxyCanvas" Height="600" Width="800" />
 </Window>
