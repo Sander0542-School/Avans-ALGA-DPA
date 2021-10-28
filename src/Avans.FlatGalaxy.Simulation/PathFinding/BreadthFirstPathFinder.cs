@@ -5,7 +5,7 @@ namespace Avans.FlatGalaxy.Simulation.PathFinding
 {
     public class BreadthFirstPathFinder : PathFinder
     {
-        public override List<Planet> Find(Planet start, Planet end)
+        protected override List<Planet> Find(Planet start, Planet end)
         {
             var previous = new Dictionary<Planet, Planet>();
             var queue = new Queue<Planet>();

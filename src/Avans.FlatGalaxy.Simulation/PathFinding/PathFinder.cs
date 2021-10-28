@@ -6,7 +6,7 @@ namespace Avans.FlatGalaxy.Simulation.PathFinding
 {
     public abstract class PathFinder
     {
-        public abstract List<Planet> Find(Planet start, Planet end);
+        protected abstract List<Planet> Find(Planet start, Planet end);
 
         public List<Planet> Get(ISimulator simulator)
         {
