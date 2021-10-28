@@ -35,8 +35,8 @@ namespace Avans.FlatGalaxy.Presentation
                     var fileContents = _fileLoader.GetContent(fileUri);
                     var galaxy = _configurationParser.Parse(fileContents);
 
-                    _simulationWindow.Show(galaxy);
-                    Close();
+                    _simulationWindow.Show(galaxy, this);
+                    Hide();
                 }
                 else
                 {

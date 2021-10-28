@@ -43,6 +43,8 @@ namespace Avans.FlatGalaxy.Simulation
             _collisionHandler = new();
             _pathHandler = new();
             _caretaker = new SimulatorCaretaker(this);
+
+            _observers = new List<IObserver<ISimulator>>();
         }
 
         public Galaxy Galaxy { get; set; }

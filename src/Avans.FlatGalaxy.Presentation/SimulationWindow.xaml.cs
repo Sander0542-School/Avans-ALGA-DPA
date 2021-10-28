@@ -17,13 +17,12 @@ namespace Avans.FlatGalaxy.Presentation
 {
     public partial class SimulationWindow : Window, IObserver<ISimulator>
     {
-        private readonly MainWindow _mainWindow;
+        private MainWindow _mainWindow;
         private ISimulator? _simulator;
         private readonly ShortcutList _shortcutList;
 
-        public SimulationWindow(MainWindow mainWindow, ShortcutList shortcutList)
+        public SimulationWindow(ShortcutList shortcutList)
         {
-            _mainWindow = mainWindow;
             _shortcutList = shortcutList;
             
             InitializeComponent();
@@ -61,8 +60,10 @@ namespace Avans.FlatGalaxy.Presentation
             if (_simulator.CollisionVisible && _simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
-        public void Show(Galaxy galaxy)
+        public void Show(Galaxy galaxy, MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
+            
             Show();
 
             _simulator = new Simulator(galaxy);
