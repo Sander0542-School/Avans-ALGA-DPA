@@ -5,9 +5,9 @@ using Avans.FlatGalaxy.Simulation.Path.Data;
 
 namespace Avans.FlatGalaxy.Simulation.Path
 {
-    public class DijkstraPathFinder : PathFinder
+    public class DijkstraPathAlgorithm : IPathAlgorithm
     {
-        protected override List<Planet> Find(Planet start, Planet end, List<Planet> planets)
+        public List<Planet> Find(Planet start, Planet end, List<Planet> planets)
         {
             var graph = new DijkstraGraph(planets);
             var startNode = graph.Nodes.First(node => node.Planet == start);
@@ -38,7 +38,8 @@ namespace Avans.FlatGalaxy.Simulation.Path
             var path = new List<DijkstraNode> { endNode };
             while (endNode.Weight.Key != null)
             {
-                endNode = endNode.Neighbours.OrderBy(edge => edge.Node.Weight.Value).First().Node;
+                endNode = endNode.Neighbours.OrderBy(edge => edge.Node.Weight.Value).FirstOrDefault()?.Node;
+                if (endNode == null) return null;
                 path.Add(endNode);
             }
 

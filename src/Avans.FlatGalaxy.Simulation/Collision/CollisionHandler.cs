@@ -1,36 +1,23 @@
 ﻿using System.Collections.Generic;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Simulation.Common;
 
 namespace Avans.FlatGalaxy.Simulation.Collision
 {
-    public class CollisionHandler
+    public class CollisionHandler : ImplementationSwapper<ICollisionDetector>
     {
-        private readonly List<ICollisionDetector> _detectors;
         private readonly List<KeyValuePair<CelestialBody, CelestialBody>> _collisions;
-
-        private int _currentDetector;
 
         public CollisionHandler()
         {
-            _detectors = new List<ICollisionDetector>
-            {
-                new QuadTreeCollisionDetector(),
-                new NaiveCollisionDetector()
-            };
-            _collisions = new List<KeyValuePair<CelestialBody, CelestialBody>>();
-        }
-
-        public void Toggle()
-        {
-            if (++_currentDetector >= _detectors.Count)
-            {
-                _currentDetector = 0;
-            }
+            Add(new QuadTreeCollisionDetector());
+            Add(new NaiveCollisionDetector());
+            _collisions = new();
         }
 
         public void Detect(ISimulator simulator)
         {
-            _detectors[_currentDetector].Detect(simulator, this);
+            Current.Detect(simulator, this);
 
             TriggerEnd();
         }
@@ -39,7 +26,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
         {
             if (body1 == body2) return;
 
-            var pair = body1.GetHashCode() < body2.GetHashCode() ? new KeyValuePair<CelestialBody, CelestialBody>(body1, body2) : new KeyValuePair<CelestialBody, CelestialBody>(body2, body1);
+            KeyValuePair<CelestialBody, CelestialBody> pair = body1.GetHashCode() < body2.GetHashCode() ? new(body1, body2) : new(body2, body1);
 
             if (!_collisions.Contains(pair))
             {

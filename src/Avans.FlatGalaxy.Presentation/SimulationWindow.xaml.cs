@@ -42,8 +42,10 @@ namespace Avans.FlatGalaxy.Presentation
         {
             GalaxyCanvas.Children.Clear();
 
-            if (_simulator?.Galaxy != null) { Draw(_simulator.Galaxy, _simulator.PathSteps); }
-            if (_simulator?.QuadTree != null) { Draw(_simulator.QuadTree); }
+            if (_simulator == null) return;
+
+            if (_simulator.Galaxy != null) { Draw(_simulator.Galaxy, _simulator.PathSteps); }
+            if (_simulator.CollisionVisible && _simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
         public void Show(Galaxy galaxy)

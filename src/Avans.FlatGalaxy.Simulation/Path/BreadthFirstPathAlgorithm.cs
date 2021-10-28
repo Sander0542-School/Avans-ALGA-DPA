@@ -3,23 +3,23 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 
 namespace Avans.FlatGalaxy.Simulation.Path
 {
-    public class BreadthFirstPathFinder : PathFinder
+    public class BreadthFirstPathAlgorithm : IPathAlgorithm
     {
-        protected override List<Planet> Find(Planet start, Planet end, List<Planet> planets)
+        public List<Planet> Find(Planet start, Planet end, List<Planet> planets)
         {
             var previous = new Dictionary<Planet, Planet>();
             var queue = new Queue<Planet>();
-            
+
             queue.Enqueue(start);
 
             while (queue.Count > 0)
             {
                 var planet = queue.Dequeue();
-                
+
                 foreach (var neighbour in planet.Neighbours)
                 {
                     if (previous.ContainsKey(neighbour)) continue;
-                    
+
                     previous[neighbour] = planet;
                     queue.Enqueue(neighbour);
                 }
@@ -32,7 +32,7 @@ namespace Avans.FlatGalaxy.Simulation.Path
                 shortest.Add(current);
                 current = previous[current];
             }
-            
+
             shortest.Add(start);
             shortest.Reverse();
 

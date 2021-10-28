@@ -31,12 +31,14 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
+        private readonly PathHandler _pathHandler;
         private readonly ICaretaker _caretaker;
 
         public Simulator(Galaxy galaxy)
         {
             Galaxy = galaxy;
-            _collisionHandler = new CollisionHandler();
+            _collisionHandler = new();
+            _pathHandler = new();
             _caretaker = new SimulatorCaretaker(this);
         }
 
@@ -53,7 +55,7 @@ namespace Avans.FlatGalaxy.Simulation
             if (_running) return;
 
             _running = true;
-            _source = new CancellationTokenSource();
+            _source = new();
             _token = _source.Token;
             _lastTick = DateTime.UtcNow;
             _lastBookmark = DateTime.UtcNow;
@@ -83,7 +85,12 @@ namespace Avans.FlatGalaxy.Simulation
 
         public void SwitchCollisionAlgo()
         {
-            _collisionHandler.Toggle();
+            _collisionHandler.Next();
+        }
+
+        public void SwitchPathAlgo()
+        {
+            _pathHandler.Next();
         }
 
         public void ToggleCollisionVisibility()
@@ -121,16 +128,14 @@ namespace Avans.FlatGalaxy.Simulation
                     Update(deltaTime);
 
                     _collisionHandler.Detect(this);
-                    
-                    // PathSteps = new BreadthFirstPathFinder().Get(this);
-                    PathSteps = new DijkstraPathFinder().Get(this);
+                    PathSteps = _pathHandler.Find(Galaxy);
 
-                    _lastTick = DateTime.UtcNow;
                     if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
                     {
                         _caretaker.Save();
                         _lastBookmark = DateTime.UtcNow;
                     }
+                    _lastTick = DateTime.UtcNow;
 
                     var nextTick = (int)(TpsTime - tickTime);
                     await Task.Delay(nextTick >= 0 ? nextTick : 0, token);

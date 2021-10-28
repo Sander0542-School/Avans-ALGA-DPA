@@ -35,6 +35,8 @@ namespace Avans.FlatGalaxy.Simulation
 
         void SwitchCollisionAlgo();
 
+        void SwitchPathAlgo();
+
         void AddAsteroid();
 
         void RemoveAsteroid();

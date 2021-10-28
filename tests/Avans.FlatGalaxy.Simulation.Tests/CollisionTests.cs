@@ -21,9 +21,9 @@ namespace Avans.FlatGalaxy.Simulation.Tests
 
             var handler = new CollisionHandler();
             handler.Detect(sim);
-            handler.Toggle();
+            handler.Next();
             handler.Detect(sim);
-            handler.Toggle();
+            handler.Next();
             handler.Detect(sim);
 
             mockCollisionState.Verify(state => state.Collide(body1, body2), Times.Once);
