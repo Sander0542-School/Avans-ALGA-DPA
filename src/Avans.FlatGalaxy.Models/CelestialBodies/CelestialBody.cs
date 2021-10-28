@@ -22,6 +22,8 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
         public int Radius { get; set; }
 
         public Color Color { get; set; }
+        
+        public Color OriginalColor { get; set; }
 
         public ICollisionState CollisionState { get; set; }
 
@@ -38,6 +40,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             VY = vy;
             Radius = radius;
             Color = color;
+            OriginalColor = color;
             CollisionState = collisionState ?? new NullCollisionState();
 
             _observers = new List<IObserver<CelestialBody>>();
