@@ -53,12 +53,16 @@ namespace Avans.FlatGalaxy.Simulation
         public void Resume()
         {
             if (_running) return;
-
             _running = true;
+
             _source = new();
             _token = _source.Token;
+
             _lastTick = DateTime.UtcNow;
+
+            _caretaker.Save();
             _lastBookmark = DateTime.UtcNow;
+
             Tick(_token);
         }
 
