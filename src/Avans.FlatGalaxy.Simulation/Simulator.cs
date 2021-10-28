@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Models.CelestialBodies.States;
 using Avans.FlatGalaxy.Simulation.Bookmark;
 using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
+using Avans.FlatGalaxy.Simulation.Extensions;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -17,7 +22,7 @@ namespace Avans.FlatGalaxy.Simulation
 
         private DateTime _lastTick = DateTime.UtcNow;
 
-        private int _speed = 50;
+        private double _speed = 25;
         private bool _running = false;
         private DateTime _lastBookmark;
 
@@ -36,6 +41,8 @@ namespace Avans.FlatGalaxy.Simulation
         public Galaxy Galaxy { get; set; }
 
         public QuadTree QuadTree { get; set; }
+
+        public bool CollisionVisible { get; set; } = false;
 
         public void Resume()
         {
@@ -60,7 +67,45 @@ namespace Avans.FlatGalaxy.Simulation
             _caretaker.Undo();
         }
 
-        public void Tick(CancellationToken token)
+        public void SpeedUp(double speed)
+        {
+            _speed += speed;
+        }
+
+        public void SpeedDown(double speed)
+        {
+            _speed -= speed;
+        }
+
+        public void SwitchCollisionAlgo()
+        {
+            _collisionHandler.Toggle();
+        }
+
+        public void ToggleCollisionVisibility()
+        {
+            CollisionVisible = !CollisionVisible;
+        }
+
+        public void AddAsteroid()
+        {
+            var rnd = new Random();
+            var x = rnd.NextDouble() * ISimulator.Width;
+            var y = rnd.NextDouble() * ISimulator.Height;
+            var vx = rnd.NextDouble() * 10 - 5;
+            var vy = rnd.NextDouble() * 10 - 5;
+            var radius = rnd.Next(2, 6);
+
+            Galaxy.Add(new Asteroid(x, y, vx, vy, radius, Color.Black, new NullCollisionState()));
+        }
+
+        public void RemoveAsteroid()
+        {
+            var asteroid = Galaxy.CelestialBodies.OfType<Asteroid>().Random();
+            Galaxy.Remove(asteroid);
+        }
+
+        private void Tick(CancellationToken token)
         {
             if (_running)
             {
@@ -74,7 +119,7 @@ namespace Avans.FlatGalaxy.Simulation
                     _collisionHandler.Detect(this);
 
                     _lastTick = DateTime.UtcNow;
-                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= 1)
+                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
                     {
                         _caretaker.Save();
                         _lastBookmark = DateTime.UtcNow;
