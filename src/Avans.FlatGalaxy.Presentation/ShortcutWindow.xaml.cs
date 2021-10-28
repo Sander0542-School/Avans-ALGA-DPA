@@ -101,9 +101,11 @@ namespace Avans.FlatGalaxy.Presentation
         private void ShortcutWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (_setKey == null) return;
-            
+
             if (CheckKey(e.Key, _setKey))
                 _setKey.Key = e.Key;
+            else
+                MessageBox.Show("This key cannot be used, it is already used by another command!");
 
             _setKey = null;
             listenForKeys.Visibility = Visibility.Hidden;

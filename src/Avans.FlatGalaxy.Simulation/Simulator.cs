@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -11,11 +12,14 @@ using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
 using Avans.FlatGalaxy.Simulation.Extensions;
+using Avans.FlatGalaxy.Models.Common;
 
 namespace Avans.FlatGalaxy.Simulation
 {
     public class Simulator : ISimulator
     {
+        private List<IObserver<ISimulator>> _observers;
+        
         private const float Second = 1000;
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
@@ -89,7 +93,8 @@ namespace Avans.FlatGalaxy.Simulation
 
         public void OpenFile()
         {
-            throw new NotImplementedException();
+            foreach (var observer in _observers)
+                observer.OnCompleted();
         }
 
         public void AddAsteroid()
@@ -152,16 +157,19 @@ namespace Avans.FlatGalaxy.Simulation
                     nextX -= nextX * 2;
                     celestialBody.VX = -celestialBody.VX;
                 }
+
                 if (nextY < 0)
                 {
                     nextY -= nextY * 2;
                     celestialBody.VY = -celestialBody.VY;
                 }
+
                 if (nextX > maxX)
                 {
                     nextX -= (nextX - maxX) * 2;
                     celestialBody.VX = -celestialBody.VX;
                 }
+
                 if (nextY > maxY)
                 {
                     nextY -= (nextY - maxY) * 2;
@@ -171,6 +179,14 @@ namespace Avans.FlatGalaxy.Simulation
                 celestialBody.X = nextX;
                 celestialBody.Y = nextY;
             }
+        }
+
+        public IDisposable Subscribe(IObserver<ISimulator> observer)
+        {
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
+
+            return new Unsubscriber<ISimulator>(_observers, observer);
         }
     }
 }

@@ -11,12 +11,14 @@ using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Presentation
 {
-    public partial class SimulationWindow : Window
+    public partial class SimulationWindow : Window, IObserver<ISimulator>
     {
+        private readonly MainWindow _mainWindow;
         private ISimulator? _simulator;
 
-        public SimulationWindow()
+        public SimulationWindow(MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
             InitializeComponent();
 
             GalaxyCanvas.Width = ISimulator.Width;
@@ -49,6 +51,7 @@ namespace Avans.FlatGalaxy.Presentation
             Show();
 
             _simulator = new Simulator(galaxy);
+            _simulator.Subscribe(this);
             _simulator.Resume();
         }
 
@@ -108,6 +111,22 @@ namespace Avans.FlatGalaxy.Presentation
             Canvas.SetTop(rect, bounds.Top);
             Canvas.SetLeft(rect, bounds.Left);
             GalaxyCanvas.Children.Add(rect);
+        }
+
+        public void OnCompleted()
+        {
+            _simulator = null;
+            
+            Hide();
+            _mainWindow.Show();
+        }
+
+        public void OnError(Exception error)
+        {
+        }
+
+        public void OnNext(ISimulator value)
+        {
         }
     }
 }

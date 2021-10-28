@@ -1,9 +1,10 @@
-﻿using Avans.FlatGalaxy.Models;
+﻿using System;
+using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
 {
-    public interface ISimulator
+    public interface ISimulator : IObservable<ISimulator>
     {
         public const int Width = 800;
 

@@ -70,6 +70,13 @@ namespace Avans.FlatGalaxy.Presentation.Commands
                 Description = "Remove asteroid from simulation",
                 Key = Key.I,
             });
+            
+            Add(new Shortcut
+            {
+                Command = new RemoveAsteroidCommand(),
+                Description = "Remove asteroid from simulation",
+                Key = Key.I,
+            });
         }
     }
 }
