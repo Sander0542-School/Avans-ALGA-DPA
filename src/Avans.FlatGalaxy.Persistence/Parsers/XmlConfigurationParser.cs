@@ -86,7 +86,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                 if (body is Planet planet) planetNeighbours.Add(planet, neighbours.ToArray());
             }
 
-            MapNeighbours(galaxy, planetNeighbours);
+            galaxy.MapNeighbours(planetNeighbours);
             return galaxy;
         }
     }

@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Simulation.Collision;
+using Avans.FlatGalaxy.Simulation.Data;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
 using Avans.FlatGalaxy.Simulation.Bookmark;
 using Avans.FlatGalaxy.Simulation.Bookmark.Common;
-using Avans.FlatGalaxy.Simulation.Collision;
-using Avans.FlatGalaxy.Simulation.Data;
 using Avans.FlatGalaxy.Simulation.Extensions;
+using Avans.FlatGalaxy.Simulation.Path;
 
 namespace Avans.FlatGalaxy.Simulation
 {
@@ -29,18 +31,22 @@ namespace Avans.FlatGalaxy.Simulation
         private CancellationTokenSource _source;
         private CancellationToken _token;
         private readonly CollisionHandler _collisionHandler;
+        private readonly PathHandler _pathHandler;
         private readonly ICaretaker _caretaker;
 
         public Simulator(Galaxy galaxy)
         {
             Galaxy = galaxy;
-            _collisionHandler = new CollisionHandler();
+            _collisionHandler = new();
+            _pathHandler = new();
             _caretaker = new SimulatorCaretaker(this);
         }
 
         public Galaxy Galaxy { get; set; }
 
         public QuadTree QuadTree { get; set; }
+
+        public List<Planet> PathSteps { get; set; }
 
         public bool CollisionVisible { get; set; } = false;
 
@@ -49,7 +55,7 @@ namespace Avans.FlatGalaxy.Simulation
             if (_running) return;
 
             _running = true;
-            _source = new CancellationTokenSource();
+            _source = new();
             _token = _source.Token;
             _lastTick = DateTime.UtcNow;
             _lastBookmark = DateTime.UtcNow;
@@ -79,7 +85,12 @@ namespace Avans.FlatGalaxy.Simulation
 
         public void SwitchCollisionAlgo()
         {
-            _collisionHandler.Toggle();
+            _collisionHandler.Next();
+        }
+
+        public void SwitchPathAlgo()
+        {
+            _pathHandler.Next();
         }
 
         public void ToggleCollisionVisibility()

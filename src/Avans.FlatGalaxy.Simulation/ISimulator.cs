@@ -1,4 +1,6 @@
-﻿using Avans.FlatGalaxy.Models;
+﻿using System.Collections.Generic;
+using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
@@ -17,6 +19,8 @@ namespace Avans.FlatGalaxy.Simulation
 
         QuadTree QuadTree { get; set; }
 
+        List<Planet> PathSteps { get; set; }
+
         bool CollisionVisible { get; set; }
 
         void Resume();
@@ -30,6 +34,8 @@ namespace Avans.FlatGalaxy.Simulation
         void SpeedDown(double speed);
 
         void SwitchCollisionAlgo();
+
+        void SwitchPathAlgo();
 
         void AddAsteroid();
 

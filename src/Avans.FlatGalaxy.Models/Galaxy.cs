@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
 
@@ -42,14 +43,23 @@ namespace Avans.FlatGalaxy.Models
             _celestialBodies.Remove(celestialBody);
         }
 
+        public void MapNeighbours(IDictionary<Planet, string[]> planetNeighbours)
+        {
+            foreach (var (planet, neighbours) in planetNeighbours)
+            {
+                foreach (var neighbour in neighbours)
+                {
+                    planet.Neighbours.Add(CelestialBodies.OfType<Planet>().First(b => b.Name == neighbour));
+                }
+            }
+        }
+
         public void OnCompleted()
         {
-            throw new NotImplementedException();
         }
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
         }
 
         public void OnNext(CelestialBody celestialBody)

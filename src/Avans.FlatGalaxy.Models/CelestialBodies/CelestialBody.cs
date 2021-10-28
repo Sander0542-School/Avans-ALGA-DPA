@@ -56,6 +56,8 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
             CollisionState.Collide(this, other);
         }
 
+        public double DistanceTo(CelestialBody target) => Math.Pow(CenterX - target.CenterX, 2) + Math.Pow(CenterY - target.CenterY, 2);
+
         public IDisposable Subscribe(IObserver<CelestialBody> observer)
         {
             _observers.Add(observer);
