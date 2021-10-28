@@ -1,5 +1,7 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Avans.FlatGalaxy.Models;
+using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
@@ -10,13 +12,15 @@ namespace Avans.FlatGalaxy.Simulation
 
         public const int Height = 600;
 
-        public const double SpeedDiff = 0.1;
+        public const double SpeedDiff = 5;
 
         public const double BookmarkTime = 5000;
 
         Galaxy Galaxy { get; set; }
 
         QuadTree QuadTree { get; set; }
+
+        List<Planet> PathSteps { get; set; }
 
         bool CollisionVisible { get; set; }
 
@@ -31,6 +35,8 @@ namespace Avans.FlatGalaxy.Simulation
         void SpeedDown(double speed);
 
         void SwitchCollisionAlgo();
+
+        void SwitchPathAlgo();
 
         void AddAsteroid();
 

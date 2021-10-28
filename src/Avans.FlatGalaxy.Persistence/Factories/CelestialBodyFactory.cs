@@ -23,9 +23,7 @@ namespace Avans.FlatGalaxy.Persistence.Factories
             };
         }
 
-        private static ICollisionState GetCollisionState(string collisionName)
-        {
-            return collisionName.ToLower() switch
+        private static ICollisionState GetCollisionState(string collisionName) => collisionName.ToLower() switch
             {
                 "blink" => new BlinkState(),
                 "bounce" => new BounceState(),
@@ -34,6 +32,5 @@ namespace Avans.FlatGalaxy.Persistence.Factories
                 "grow" => new GrowState(),
                 _ => new NullCollisionState()
             };
-        }
     }
 }
