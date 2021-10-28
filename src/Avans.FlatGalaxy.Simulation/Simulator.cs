@@ -87,6 +87,11 @@ namespace Avans.FlatGalaxy.Simulation
             CollisionVisible = !CollisionVisible;
         }
 
+        public void OpenFile()
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddAsteroid()
         {
             var rnd = new Random();

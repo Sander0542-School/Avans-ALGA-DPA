@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
-        Title="SimulationWindow" 
+        Title="Avans: Flat Galaxy - Simulation" 
         SizeToContent="WidthAndHeight"
         ResizeMode="CanMinimize"
         Background="DimGray" WindowStartupLocation="CenterScreen">

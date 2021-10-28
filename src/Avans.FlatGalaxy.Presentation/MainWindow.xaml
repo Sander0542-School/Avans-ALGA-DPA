@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Avans.FlatGalaxy.Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="500"
+        Title="Avans: Flat Galaxy" Height="450" Width="500"
         ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>

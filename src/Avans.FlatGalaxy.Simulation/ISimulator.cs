@@ -36,5 +36,6 @@ namespace Avans.FlatGalaxy.Simulation
         void RemoveAsteroid();
 
         void ToggleCollisionVisibility();
+        void OpenFile();
     }
 }
