@@ -5,6 +5,9 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies.States
 {
     public class BlinkState : ICollisionState
     {
+        private const int Times = 4;
+        private const int Delay = 250;
+
         private bool _blinking;
 
         public void Collide(CelestialBody self, CelestialBody other)
@@ -13,15 +16,21 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies.States
             {
                 _blinking = true;
                 Task.Run(async () => {
-                    self.Color = Color.DeepPink;
-                    await Task.Delay(1000);
                     var color = self.OriginalColor;
+                    var invertedColor = Color.FromArgb(self.OriginalColor.ToArgb() ^ 0xFFFFFF);
+                    for (var i = 0; i < Times; i++)
+                    {
+                        self.Color = invertedColor;
+                        await Task.Delay(Delay);
+                        self.Color = color;
+                        await Task.Delay(Delay);
+                    }
                     self.Color = color;
                     _blinking = false;
                 });
             }
         }
-        
+
         public ICollisionState Clone()
         {
             return new BlinkState();
