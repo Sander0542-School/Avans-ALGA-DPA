@@ -100,8 +100,8 @@ namespace Avans.FlatGalaxy.Presentation
         {
             var rect = new Rectangle
             {
-                Stroke = new SolidColorBrush(Colors.Red),
-                Fill = new SolidColorBrush(Colors.Transparent),
+                Stroke = Brushes.Red,
+                Fill = Brushes.Transparent,
                 Width = bounds.Width,
                 Height = bounds.Height,
             };
