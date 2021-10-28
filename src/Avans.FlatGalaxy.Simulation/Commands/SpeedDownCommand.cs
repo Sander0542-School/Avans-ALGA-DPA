@@ -4,9 +4,16 @@ namespace Avans.FlatGalaxy.Simulation.Commands
 {
     public class SpeedDownCommand : ICommand
     {
+        private readonly double _speedDiff;
+
+        public SpeedDownCommand(double speedDiff = ISimulator.SpeedDiff)
+        {
+            _speedDiff = speedDiff;
+        }
+
         public void Execute(ISimulator simulator)
         {
-            simulator.SpeedDown(ISimulator.SpeedDiff);
+            simulator.SpeedDown(_speedDiff);
         }
     }
 }
