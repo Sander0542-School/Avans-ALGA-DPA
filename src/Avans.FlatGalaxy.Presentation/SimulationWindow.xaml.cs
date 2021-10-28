@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Presentation.Commands;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
 using Avans.FlatGalaxy.Simulation.Data;
@@ -14,9 +16,11 @@ namespace Avans.FlatGalaxy.Presentation
     public partial class SimulationWindow : Window
     {
         private ISimulator? _simulator;
+        private readonly ShortcutList _shortcutList;
 
-        public SimulationWindow()
+        public SimulationWindow(ShortcutList shortcutList)
         {
+            _shortcutList = shortcutList;
             InitializeComponent();
 
             GalaxyCanvas.Width = ISimulator.Width;
@@ -24,6 +28,12 @@ namespace Avans.FlatGalaxy.Presentation
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            KeyUp += OnKeyUp;
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (_simulator != null) _shortcutList.HandleKey(e.Key, _simulator);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

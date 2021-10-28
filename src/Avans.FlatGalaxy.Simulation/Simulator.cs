@@ -114,26 +114,32 @@ namespace Avans.FlatGalaxy.Simulation
         {
             if (_running)
             {
-                Task.Run(async () => {
-                    var currentTime = DateTime.UtcNow;
-                    var tickTime = (currentTime - _lastTick).TotalMilliseconds;
-                    var deltaTime = tickTime * _speed / 1000;
+                try
+                {
+                    Task.Run(async () => {
+                        var currentTime = DateTime.UtcNow;
+                        var tickTime = (currentTime - _lastTick).TotalMilliseconds;
+                        var deltaTime = tickTime * _speed / 1000;
 
-                    Update(deltaTime);
+                        Update(deltaTime);
 
-                    _collisionHandler.Detect(this);
+                        _collisionHandler.Detect(this);
 
-                    _lastTick = DateTime.UtcNow;
-                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
-                    {
-                        _caretaker.Save();
-                        _lastBookmark = DateTime.UtcNow;
-                    }
+                        _lastTick = DateTime.UtcNow;
+                        if ((DateTime.UtcNow - _lastBookmark).TotalMilliseconds >= ISimulator.BookmarkTime)
+                        {
+                            _caretaker.Save();
+                            _lastBookmark = DateTime.UtcNow;
+                        }
 
-                    var nextTick = (int)(TpsTime - tickTime);
-                    await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
-                    Tick(token);
-                }, token);
+                        var nextTick = (int)(TpsTime - tickTime);
+                        await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
+                        Tick(token);
+                    }, token);
+                }
+                catch (TaskCanceledException)
+                {
+                }
             }
         }
 

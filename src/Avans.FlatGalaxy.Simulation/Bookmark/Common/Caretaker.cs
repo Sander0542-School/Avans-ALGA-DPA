@@ -9,7 +9,7 @@ namespace Avans.FlatGalaxy.Simulation.Bookmark.Common
 
         protected Caretaker()
         {
-            _mementos = new Stack<IMemento<T>>();
+            _mementos = new();
         }
 
         protected abstract IMemento<T> Create();

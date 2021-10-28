@@ -9,7 +9,7 @@ namespace Avans.FlatGalaxy.Simulation
 
         public const int Height = 600;
 
-        public const double SpeedDiff = 0.1;
+        public const double SpeedDiff = 5;
 
         public const double BookmarkTime = 5000;
 
