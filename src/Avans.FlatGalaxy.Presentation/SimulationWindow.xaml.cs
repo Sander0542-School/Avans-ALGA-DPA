@@ -10,7 +10,6 @@ using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
 using Avans.FlatGalaxy.Simulation.Data;
-using Color=System.Drawing.Color;
 
 namespace Avans.FlatGalaxy.Presentation
 {

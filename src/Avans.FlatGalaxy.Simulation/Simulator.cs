@@ -122,8 +122,8 @@ namespace Avans.FlatGalaxy.Simulation
 
                     _collisionHandler.Detect(this);
                     
-                    PathSteps = new BreadthFirstPathFinder().Get(this);
-                    // PathSteps = new CheapestPathFinder().Get(this);
+                    // PathSteps = new BreadthFirstPathFinder().Get(this);
+                    PathSteps = new DijkstraPathFinder().Get(this);
 
                     _lastTick = DateTime.UtcNow;
                     if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
