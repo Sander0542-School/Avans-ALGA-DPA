@@ -61,6 +61,13 @@ namespace Avans.FlatGalaxy.Presentation.Commands
 
             Add(new()
             {
+                Command = new PathSwitchCommand(),
+                Description = "Switch path finding (Breadth first / Dijkstra)",
+                Key = Key.J,
+            });
+
+            Add(new()
+            {
                 Command = new AddAsteroidCommand(),
                 Description = "Add asteroid to simulation",
                 Key = Key.U,

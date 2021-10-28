@@ -120,8 +120,8 @@ namespace Avans.FlatGalaxy.Simulation
 
         public void RemoveAsteroid()
         {
-            var asteroid = Galaxy.CelestialBodies.OfType<Asteroid>().Random();
-            Galaxy.Remove(asteroid);
+            var asteroids = Galaxy.CelestialBodies.OfType<Asteroid>().ToList();
+            if (asteroids.Any()) Galaxy.Remove(asteroids.Random());
         }
 
         private void Tick(CancellationToken token)
@@ -138,6 +138,7 @@ namespace Avans.FlatGalaxy.Simulation
                         Update(deltaTime);
 
                         _collisionHandler.Detect(this);
+                        PathSteps = _pathHandler.Find(Galaxy);
 
                         _lastTick = DateTime.UtcNow;
                         if ((DateTime.UtcNow - _lastBookmark).TotalMilliseconds >= ISimulator.BookmarkTime)
