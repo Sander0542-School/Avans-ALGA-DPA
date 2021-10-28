@@ -13,9 +13,9 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies.States
             {
                 _blinking = true;
                 Task.Run(async () => {
-                    var color = self.Color;
                     self.Color = Color.DeepPink;
                     await Task.Delay(1000);
+                    var color = self.OriginalColor;
                     self.Color = color;
                     _blinking = false;
                 });

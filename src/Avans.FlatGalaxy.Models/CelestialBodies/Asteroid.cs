@@ -11,7 +11,7 @@ namespace Avans.FlatGalaxy.Models.CelestialBodies
 
         public override CelestialBody Clone()
         {
-            return new Asteroid(X, Y, VX, VY, Radius, Color, CollisionState.Clone());
+            return new Asteroid(X, Y, VX, VY, Radius, OriginalColor, CollisionState.Clone());
         }
     }
 }
