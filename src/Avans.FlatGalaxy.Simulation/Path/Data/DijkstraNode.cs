@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 
-namespace Avans.FlatGalaxy.Simulation.PathFinding.Data
+namespace Avans.FlatGalaxy.Simulation.Path.Data
 {
     public class DijkstraNode
     {

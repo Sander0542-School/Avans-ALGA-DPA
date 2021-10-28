@@ -2,7 +2,7 @@
 using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 
-namespace Avans.FlatGalaxy.Simulation.PathFinding
+namespace Avans.FlatGalaxy.Simulation.Path
 {
     public abstract class PathFinder
     {

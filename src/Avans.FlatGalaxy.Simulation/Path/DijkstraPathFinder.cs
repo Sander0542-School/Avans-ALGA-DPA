@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies;
-using Avans.FlatGalaxy.Simulation.PathFinding.Data;
+using Avans.FlatGalaxy.Simulation.Path.Data;
 
-namespace Avans.FlatGalaxy.Simulation.PathFinding
+namespace Avans.FlatGalaxy.Simulation.Path
 {
     public class DijkstraPathFinder : PathFinder
     {

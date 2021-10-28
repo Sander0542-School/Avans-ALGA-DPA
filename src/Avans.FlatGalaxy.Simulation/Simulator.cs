@@ -8,11 +8,11 @@ using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Collision;
 using Avans.FlatGalaxy.Simulation.Data;
-using Avans.FlatGalaxy.Simulation.PathFinding;
 using Avans.FlatGalaxy.Models.CelestialBodies.States;
 using Avans.FlatGalaxy.Simulation.Bookmark;
 using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Extensions;
+using Avans.FlatGalaxy.Simulation.Path;
 
 namespace Avans.FlatGalaxy.Simulation
 {

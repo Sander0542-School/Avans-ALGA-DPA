@@ -2,7 +2,7 @@
 using System.Linq;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 
-namespace Avans.FlatGalaxy.Simulation.PathFinding.Data
+namespace Avans.FlatGalaxy.Simulation.Path.Data
 {
     public class DijkstraGraph
     {

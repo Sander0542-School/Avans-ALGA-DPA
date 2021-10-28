@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 
-namespace Avans.FlatGalaxy.Simulation.PathFinding
+namespace Avans.FlatGalaxy.Simulation.Path
 {
     public class BreadthFirstPathFinder : PathFinder
     {

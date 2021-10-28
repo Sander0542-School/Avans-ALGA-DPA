@@ -1,4 +1,4 @@
-﻿namespace Avans.FlatGalaxy.Simulation.PathFinding.Data
+﻿namespace Avans.FlatGalaxy.Simulation.Path.Data
 {
     public class DijkstraEdge
     {
