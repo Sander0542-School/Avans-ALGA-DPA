@@ -114,9 +114,8 @@ namespace Avans.FlatGalaxy.Simulation
             var y = rnd.NextDouble() * ISimulator.Height;
             var vx = rnd.NextDouble() * 10 - 5;
             var vy = rnd.NextDouble() * 10 - 5;
-            var radius = rnd.Next(2, 6);
 
-            Galaxy.Add(new Asteroid(x, y, vx, vy, radius, Color.Black, new NullCollisionState()));
+            Galaxy.Add(new Asteroid(x, y, vx, vy, 5, Color.Black, new NullCollisionState()));
         }
 
         public void RemoveAsteroid()
