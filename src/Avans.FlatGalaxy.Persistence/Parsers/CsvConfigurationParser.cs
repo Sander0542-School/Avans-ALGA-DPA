@@ -56,7 +56,7 @@ namespace Avans.FlatGalaxy.Persistence.Parsers
                 }
             }
 
-            MapNeighbours(galaxy, planetNeighbours);
+            galaxy.MapNeighbours(planetNeighbours);
             return galaxy;
         }
     }
