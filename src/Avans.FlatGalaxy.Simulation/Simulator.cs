@@ -85,11 +85,13 @@ namespace Avans.FlatGalaxy.Simulation
         public void SpeedUp(double speed)
         {
             _speed += speed;
+            if (speed > 100) _speed = 100;
         }
 
         public void SpeedDown(double speed)
         {
             _speed -= speed;
+            if (speed < 0) _speed = 0;
         }
 
         public void SwitchCollisionAlgo()

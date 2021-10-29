@@ -1,5 +1,5 @@
-﻿using Avans.FlatGalaxy.Simulation.Data;
 ﻿using System.Linq;
+using Avans.FlatGalaxy.Simulation.Data;
 using Avans.FlatGalaxy.Simulation.Extensions;
 
 namespace Avans.FlatGalaxy.Simulation.Collision
