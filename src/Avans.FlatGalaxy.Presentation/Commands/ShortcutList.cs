@@ -33,7 +33,7 @@ namespace Avans.FlatGalaxy.Presentation.Commands
 
             Add(new()
             {
-                Command = new SpeedUpCommand(),
+                Command = new SpeedDownCommand(),
                 Description = "Speed down simulation",
                 Key = Key.OemMinus,
             });
