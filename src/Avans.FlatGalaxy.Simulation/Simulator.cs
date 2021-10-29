@@ -12,12 +12,15 @@ using Avans.FlatGalaxy.Models.CelestialBodies.States;
 using Avans.FlatGalaxy.Simulation.Bookmark;
 using Avans.FlatGalaxy.Simulation.Bookmark.Common;
 using Avans.FlatGalaxy.Simulation.Extensions;
+using Avans.FlatGalaxy.Models.Common;
 using Avans.FlatGalaxy.Simulation.Path;
 
 namespace Avans.FlatGalaxy.Simulation
 {
     public class Simulator : ISimulator
     {
+        private List<IObserver<ISimulator>> _observers;
+        
         private const float Second = 1000;
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
@@ -40,6 +43,8 @@ namespace Avans.FlatGalaxy.Simulation
             _collisionHandler = new();
             _pathHandler = new();
             _caretaker = new SimulatorCaretaker(this);
+
+            _observers = new List<IObserver<ISimulator>>();
         }
 
         public Galaxy Galaxy { get; set; }
@@ -53,12 +58,16 @@ namespace Avans.FlatGalaxy.Simulation
         public void Resume()
         {
             if (_running) return;
-
             _running = true;
+
             _source = new();
             _token = _source.Token;
+
             _lastTick = DateTime.UtcNow;
+
+            _caretaker.Save();
             _lastBookmark = DateTime.UtcNow;
+
             Tick(_token);
         }
 
@@ -98,6 +107,12 @@ namespace Avans.FlatGalaxy.Simulation
             CollisionVisible = !CollisionVisible;
         }
 
+        public void OpenFile()
+        {
+            foreach (var observer in _observers)
+                observer.OnCompleted();
+        }
+
         public void AddAsteroid()
         {
             var rnd = new Random();
@@ -105,42 +120,47 @@ namespace Avans.FlatGalaxy.Simulation
             var y = rnd.NextDouble() * ISimulator.Height;
             var vx = rnd.NextDouble() * 10 - 5;
             var vy = rnd.NextDouble() * 10 - 5;
-            var radius = rnd.Next(2, 6);
 
-            Galaxy.Add(new Asteroid(x, y, vx, vy, radius, Color.Black, new NullCollisionState()));
+            Galaxy.Add(new Asteroid(x, y, vx, vy, 5, Color.Black, new NullCollisionState()));
         }
 
         public void RemoveAsteroid()
         {
-            var asteroid = Galaxy.CelestialBodies.OfType<Asteroid>().Random();
-            Galaxy.Remove(asteroid);
+            var asteroids = Galaxy.CelestialBodies.OfType<Asteroid>().ToList();
+            if (asteroids.Any()) Galaxy.Remove(asteroids.Random());
         }
 
         private void Tick(CancellationToken token)
         {
             if (_running)
             {
-                Task.Run(async () => {
-                    var currentTime = DateTime.UtcNow;
-                    var tickTime = (currentTime - _lastTick).TotalMilliseconds;
-                    var deltaTime = tickTime * _speed / 1000;
+                try
+                {
+                    Task.Run(async () => {
+                        var currentTime = DateTime.UtcNow;
+                        var tickTime = (currentTime - _lastTick).TotalMilliseconds;
+                        var deltaTime = tickTime * _speed / 1000;
 
-                    Update(deltaTime);
+                        Update(deltaTime);
 
-                    _collisionHandler.Detect(this);
-                    PathSteps = _pathHandler.Find(Galaxy);
+                        _collisionHandler.Detect(this);
+                        PathSteps = _pathHandler.Find(Galaxy);
 
-                    if ((DateTime.UtcNow - _lastBookmark).TotalSeconds >= ISimulator.BookmarkTime)
-                    {
-                        _caretaker.Save();
-                        _lastBookmark = DateTime.UtcNow;
-                    }
-                    _lastTick = DateTime.UtcNow;
+                        _lastTick = DateTime.UtcNow;
+                        if ((DateTime.UtcNow - _lastBookmark).TotalMilliseconds >= ISimulator.BookmarkTime)
+                        {
+                            _caretaker.Save();
+                            _lastBookmark = DateTime.UtcNow;
+                        }
 
-                    var nextTick = (int)(TpsTime - tickTime);
-                    await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
-                    Tick(token);
-                }, token);
+                        var nextTick = (int)(TpsTime - tickTime);
+                        await Task.Delay(nextTick >= 0 ? nextTick : 0, token);
+                        Tick(token);
+                    }, token);
+                }
+                catch (TaskCanceledException)
+                {
+                }
             }
         }
 
@@ -159,16 +179,19 @@ namespace Avans.FlatGalaxy.Simulation
                     nextX -= nextX * 2;
                     celestialBody.VX = -celestialBody.VX;
                 }
+
                 if (nextY < 0)
                 {
                     nextY -= nextY * 2;
                     celestialBody.VY = -celestialBody.VY;
                 }
+
                 if (nextX > maxX)
                 {
                     nextX -= (nextX - maxX) * 2;
                     celestialBody.VX = -celestialBody.VX;
                 }
+
                 if (nextY > maxY)
                 {
                     nextY -= (nextY - maxY) * 2;
@@ -178,6 +201,14 @@ namespace Avans.FlatGalaxy.Simulation
                 celestialBody.X = nextX;
                 celestialBody.Y = nextY;
             }
+        }
+
+        public IDisposable Subscribe(IObserver<ISimulator> observer)
+        {
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
+
+            return new Unsubscriber<ISimulator>(_observers, observer);
         }
     }
 }

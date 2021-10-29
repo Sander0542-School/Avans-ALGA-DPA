@@ -3,22 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
+using Avans.FlatGalaxy.Presentation.Commands;
 using Avans.FlatGalaxy.Presentation.Extensions;
 using Avans.FlatGalaxy.Simulation;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Presentation
 {
-    public partial class SimulationWindow : Window
+    public partial class SimulationWindow : Window, IObserver<ISimulator>
     {
+        private MainWindow _mainWindow;
         private ISimulator? _simulator;
+        private readonly ShortcutList _shortcutList;
 
-        public SimulationWindow()
+        public SimulationWindow(ShortcutList shortcutList)
         {
+            _shortcutList = shortcutList;
+            
             InitializeComponent();
 
             GalaxyCanvas.Width = ISimulator.Width;
@@ -26,6 +32,12 @@ namespace Avans.FlatGalaxy.Presentation
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
+            KeyUp += OnKeyUp;
+        }
+
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            if (_simulator != null) _shortcutList.HandleKey(e.Key, _simulator);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -48,11 +60,14 @@ namespace Avans.FlatGalaxy.Presentation
             if (_simulator.CollisionVisible && _simulator.QuadTree != null) { Draw(_simulator.QuadTree); }
         }
 
-        public void Show(Galaxy galaxy)
+        public void Show(Galaxy galaxy, MainWindow mainWindow)
         {
+            _mainWindow = mainWindow;
+            
             Show();
 
             _simulator = new Simulator(galaxy);
+            _simulator.Subscribe(this);
             _simulator.Resume();
         }
 
@@ -118,6 +133,22 @@ namespace Avans.FlatGalaxy.Presentation
             Canvas.SetTop(rect, bounds.Top);
             Canvas.SetLeft(rect, bounds.Left);
             GalaxyCanvas.Children.Add(rect);
+        }
+
+        public void OnCompleted()
+        {
+            _simulator = null;
+            
+            Hide();
+            _mainWindow.Show();
+        }
+
+        public void OnError(Exception error)
+        {
+        }
+
+        public void OnNext(ISimulator value)
+        {
         }
     }
 }

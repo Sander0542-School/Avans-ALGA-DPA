@@ -4,6 +4,7 @@ using Avans.FlatGalaxy.Persistence.Factories;
 using Avans.FlatGalaxy.Persistence.Factories.Common;
 using Avans.FlatGalaxy.Persistence.Loaders;
 using Avans.FlatGalaxy.Persistence.Parsers;
+using Avans.FlatGalaxy.Presentation.Commands;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,8 @@ namespace Avans.FlatGalaxy.Presentation
         {
             services.AddSingleton<MainWindow>();
             services.AddSingleton<SimulationWindow>();
+            services.AddSingleton<ShortcutWindow>();
+            services.AddSingleton<ShortcutList>();
 
             services.AddTransient<ICelestialBodyFactory, CelestialBodyFactory>();
             services.AddTransient<IFileLoader, FileLoader>();

@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using Avans.FlatGalaxy.Models;
 using Avans.FlatGalaxy.Models.CelestialBodies;
 using Avans.FlatGalaxy.Simulation.Data;
 
 namespace Avans.FlatGalaxy.Simulation
 {
-    public interface ISimulator
+    public interface ISimulator : IObservable<ISimulator>
     {
         public const int Width = 800;
 
         public const int Height = 600;
 
-        public const double SpeedDiff = 0.1;
+        public const double SpeedDiff = 5;
 
         public const double BookmarkTime = 5000;
 
@@ -42,5 +43,6 @@ namespace Avans.FlatGalaxy.Simulation
         void RemoveAsteroid();
 
         void ToggleCollisionVisibility();
+        void OpenFile();
     }
 }
