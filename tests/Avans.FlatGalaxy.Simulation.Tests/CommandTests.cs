@@ -22,7 +22,7 @@ namespace Avans.FlatGalaxy.Simulation.Tests
                 bodies.Add(new Asteroid(7, 7, 0, 0, 3, Color.Green, null));  
             
 
-            var sim = new Simulator(new Galaxy(bodies));
+            var sim = new Simulator(new(bodies));
             var count = sim.Galaxy.CelestialBodies.Count();
             
             sim.AddAsteroid();
@@ -35,7 +35,7 @@ namespace Avans.FlatGalaxy.Simulation.Tests
         public void Test_ToggleCollisionVisibility()
         {
             var body = new Asteroid(7, 7, 0, 0, 3, Color.Green, null);
-            var sim = new Simulator(new Galaxy(new[] {body}));
+            var sim = new Simulator(new(new[] {body}));
 
             var vis = sim.CollisionVisible;
             sim.ToggleCollisionVisibility();

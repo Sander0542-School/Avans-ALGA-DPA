@@ -21,7 +21,7 @@ namespace Avans.FlatGalaxy.Simulation.Tests
         [InlineData(74)]
         public void Test_QuadTree_Insert(int count)
         {
-            var quadTree = new QuadTree(new Bounds(0, Size, Size, 0));
+            var quadTree = new QuadTree(new(0, Size, Size, 0));
 
             foreach (var body in CreateCelestialBodies(count))
             {
@@ -32,7 +32,7 @@ namespace Avans.FlatGalaxy.Simulation.Tests
         [Fact]
         public void Test_QuadTree_Insert_SameLocation_BelowSize()
         {
-            var quadTree = new QuadTree(new Bounds(0, Size, Size, 0));
+            var quadTree = new QuadTree(new(0, Size, Size, 0));
 
             foreach (var body in CreateCelestialBodies(QuadTree.Size - 1))
             {
@@ -48,7 +48,7 @@ namespace Avans.FlatGalaxy.Simulation.Tests
         [Fact]
         public void Test_QuadTree_Insert_SameLocation_AboveSize()
         {
-            var quadTree = new QuadTree(new Bounds(0, Size, Size, 0));
+            var quadTree = new QuadTree(new(0, Size, Size, 0));
 
             foreach (var body in CreateCelestialBodies(QuadTree.Size + 1))
             {

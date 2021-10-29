@@ -33,7 +33,7 @@ namespace Avans.FlatGalaxy.Presentation
                 var stack = new StackPanel
                 {
                     Orientation = Orientation.Vertical,
-                    Margin = new Thickness(10),
+                    Margin = new(10),
                     Children =
                     {
                         new TextBlock
@@ -57,7 +57,7 @@ namespace Avans.FlatGalaxy.Presentation
                     Content = "Edit",
                     Width = 40,
                     Height = 30,
-                    Margin = new Thickness(10)
+                    Margin = new(10)
                 };
 
                 button.Click += (o, args) =>
@@ -87,8 +87,8 @@ namespace Avans.FlatGalaxy.Presentation
 
                 var border = new Border
                 {
-                    Margin = new Thickness(15, 5, 15, 5),
-                    BorderThickness = new Thickness(1),
+                    Margin = new(15, 5, 15, 5),
+                    BorderThickness = new(1),
                     BorderBrush = new SolidColorBrush(Colors.Black),
                     Background = Brushes.LightGray,
                     Child = grid

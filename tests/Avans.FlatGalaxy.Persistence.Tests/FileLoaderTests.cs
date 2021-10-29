@@ -44,7 +44,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         public void Test_FileLoader_Http_GetContent_Success(string uri)
         {
             var loader = new HttpFileLoader();
-            var content = loader.GetContent(new Uri(uri));
+            var content = loader.GetContent(new(uri));
 
             Assert.False(string.IsNullOrWhiteSpace(content));
         }
@@ -56,7 +56,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         {
             var loader = new HttpFileLoader();
 
-            Assert.Throws<HttpRequestException>(() => loader.GetContent(new Uri(uri)));
+            Assert.Throws<HttpRequestException>(() => loader.GetContent(new(uri)));
         }
 
         [Theory]
@@ -65,7 +65,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         public void Test_FileLoader_FileSystem_GetContent_Success(string uri)
         {
             var loader = new FileSystemFileLoader();
-            var content = loader.GetContent(new Uri(uri));
+            var content = loader.GetContent(new(uri));
 
             Assert.False(string.IsNullOrWhiteSpace(content));
         }
@@ -77,7 +77,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         {
             var loader = new FileSystemFileLoader();
             
-            Assert.Throws<FileNotFoundException>(() => loader.GetContent(new Uri(uri)));
+            Assert.Throws<FileNotFoundException>(() => loader.GetContent(new(uri)));
         }
     }
 }

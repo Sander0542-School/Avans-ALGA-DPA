@@ -7,7 +7,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
     {
         public void Detect(ISimulator simulator, CollisionHandler handler)
         {
-            var quadTree = new QuadTree(new Bounds(0, ISimulator.Width, ISimulator.Height, 0));
+            var quadTree = new QuadTree(new(0, ISimulator.Width, ISimulator.Height, 0));
 
             foreach (var celestialBody in simulator.Galaxy.CelestialBodies)
             {

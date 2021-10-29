@@ -13,7 +13,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
 
         public ConfigurationParserTests()
         {
-            _bodyFactory = new CelestialBodyFactory();
+            _bodyFactory = new();
             _fileLoader = new FileLoader();
         }
 
@@ -22,7 +22,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         [InlineData("file://planetsExtended.xml")]
         public void Test_ConfigurationParser_Xml(string uri)
         {
-            var content = _fileLoader.GetContent(new Uri(uri));
+            var content = _fileLoader.GetContent(new(uri));
 
             var parser = new XmlConfigurationParser(_bodyFactory);
 
@@ -38,7 +38,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         [InlineData("file://planetsExtended.csv")]
         public void Test_ConfigurationParser_Csv(string uri)
         {
-            var content = _fileLoader.GetContent(new Uri(uri));
+            var content = _fileLoader.GetContent(new(uri));
 
             var parser = new CsvConfigurationParser(_bodyFactory);
 
@@ -56,7 +56,7 @@ namespace Avans.FlatGalaxy.Persistence.Tests
         [InlineData("file://planetsExtended.csv")]
         public void Test_ConfigurationParser(string uri)
         {
-            var content = _fileLoader.GetContent(new Uri(uri));
+            var content = _fileLoader.GetContent(new(uri));
 
             var parser = new ConfigurationParser(_bodyFactory);
 

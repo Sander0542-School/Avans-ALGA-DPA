@@ -30,7 +30,7 @@ namespace Avans.FlatGalaxy.Persistence.Loaders
             }
             catch (Exception e)
             {
-                throw new Exception("The file could not be loaded.", e);
+                throw new("The file could not be loaded.", e);
             }
         }
     }

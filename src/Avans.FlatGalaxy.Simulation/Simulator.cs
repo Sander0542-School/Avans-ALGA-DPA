@@ -20,7 +20,7 @@ namespace Avans.FlatGalaxy.Simulation
     public class Simulator : ISimulator
     {
         private List<IObserver<ISimulator>> _observers;
-        
+
         private const float Second = 1000;
         private const float TpsTarget = 20;
         private const float TpsTime = Second / TpsTarget;
@@ -44,7 +44,7 @@ namespace Avans.FlatGalaxy.Simulation
             _pathHandler = new();
             _caretaker = new SimulatorCaretaker(this);
 
-            _observers = new List<IObserver<ISimulator>>();
+            _observers = new();
         }
 
         public Galaxy Galaxy { get; set; }
@@ -166,7 +166,6 @@ namespace Avans.FlatGalaxy.Simulation
 
         private void Update(double deltaTime)
         {
-            foreach (var celestialBody in Galaxy.CelestialBodies)
             {
                 var nextX = celestialBody.X + celestialBody.VX * deltaTime;
                 var nextY = celestialBody.Y + celestialBody.VY * deltaTime;

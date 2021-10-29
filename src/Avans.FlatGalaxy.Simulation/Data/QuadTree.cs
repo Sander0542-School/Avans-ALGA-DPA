@@ -52,10 +52,10 @@ namespace Avans.FlatGalaxy.Simulation.Data
 
         public void Subdivide()
         {
-            TopRight = new QuadTree(Bounds.TopRight, _depth + 1);
-            TopLeft = new QuadTree(Bounds.TopLeft, _depth + 1);
-            BottomRight = new QuadTree(Bounds.BottomRight, _depth + 1);
-            BottomLeft = new QuadTree(Bounds.BottomLeft, _depth + 1);
+            TopRight = new(Bounds.TopRight, _depth + 1);
+            TopLeft = new(Bounds.TopLeft, _depth + 1);
+            BottomRight = new(Bounds.BottomRight, _depth + 1);
+            BottomLeft = new(Bounds.BottomLeft, _depth + 1);
 
             foreach (var element in Elements)
             {
