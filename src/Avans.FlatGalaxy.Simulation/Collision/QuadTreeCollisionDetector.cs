@@ -1,4 +1,5 @@
 ﻿using Avans.FlatGalaxy.Simulation.Data;
+﻿using System.Linq;
 using Avans.FlatGalaxy.Simulation.Extensions;
 
 namespace Avans.FlatGalaxy.Simulation.Collision
@@ -9,7 +10,7 @@ namespace Avans.FlatGalaxy.Simulation.Collision
         {
             var quadTree = new QuadTree(new(0, ISimulator.Width, ISimulator.Height, 0));
 
-            foreach (var celestialBody in simulator.Galaxy.CelestialBodies)
+            foreach (var celestialBody in simulator.Galaxy.CelestialBodies.ToList())
             {
                 quadTree.Insert(celestialBody);
             }

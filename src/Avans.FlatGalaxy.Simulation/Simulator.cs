@@ -166,6 +166,7 @@ namespace Avans.FlatGalaxy.Simulation
 
         private void Update(double deltaTime)
         {
+            foreach (var celestialBody in Galaxy.CelestialBodies.ToList())
             {
                 var nextX = celestialBody.X + celestialBody.VX * deltaTime;
                 var nextY = celestialBody.Y + celestialBody.VY * deltaTime;
